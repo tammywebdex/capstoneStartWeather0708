@@ -7,7 +7,7 @@ const apiKey = '&appid=be20ae21258e9d2f18529195894f2466';
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-function performAction() {
+export function performAction() {
     /*e.preventDefault();*/
     const zipCode = document.getElementById('zip').value;
     const feelings = document.getElementById('feelings').value;
@@ -61,7 +61,3 @@ const updateUI = async() => {
         console.log("error", error);
     }
 }
-const generate = document.getElementById('generate');
-generate.addEventListener ('click', performAction);getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
-
-export { performAction }

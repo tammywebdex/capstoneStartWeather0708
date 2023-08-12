@@ -2,11 +2,11 @@
   "name": "capstonestartweather0708",
   "version": "1.0.0",
   "description": "capstone project from weather",
-  "main": "\"node src/server/index.js\"",
+  "main": "\"node src/client/index.js\"",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-prod": "webpack --config webpack.prod.js",
-    "build-dev": "webpack --config webpack.dev.js --open",
+    "build-dev": "webpack --config webpack.dev.js",
     "start": "node src/server/index.js"
   },
   "author": "tfrisquet",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-env": "^7.22.10",
     "babel-loader": "^8.3.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.8.1",
