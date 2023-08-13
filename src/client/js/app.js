@@ -53,7 +53,7 @@ const postData = async (url = '', data = {}) => {
 const updateUI = async() => {
     const request = await fetch('/all');
     try {
-        const allData = await request.jason()
+        const allData = await request.json()
         document.getElementById('date'). innerHTML = allData.date;
         document.getElementById('temp').innerHTML = allData.temp;
         document.getElementById('content').innerHTML = allData.feelings;
