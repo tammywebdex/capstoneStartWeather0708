@@ -1,88 +1,147 @@
-body {
-  background-color: rgb(2, 5, 54);
-  color: whitesmoke;
+body{
+  background: #fffff8;
+  margin: 30px;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-#app {
+#app{
   display: grid;
   grid-auto-rows: minmax(150px, auto);
-  /* grid-template-columns:  */
-  height:100vh;
+  background: white;
+  color: black;
   justify-content: center;
+  grid-gap: 1em;
   font-size: 20px;
   font-family: 'Oswald', sans-serif;
+  border: none;
 }
 
-#zip {
-  background-color: rgb(59, 59, 192);
-  color: whitesmoke;
+.holder{
+  display: inline-block;
+  padding: 5px 5px;
+  font-size: 20px;
+  text-align: justify;
+  text-decoration: none;
+  outline: none;
+  color: black;
+  background-color: lightgray;
+  border: none;
+  border-radius: 10px;
 }
 
-#feelings {
-  background-color: rgb(59, 59, 192);
-  color: whitesmoke;
-  height: 20vh;
+.headline {
+  font-size: 60px;
+  color: black;
+  text-align: center;
 }
-
+.entry{
+  background: darkblue;
+  color: white;
+}
 .title {
-  margin-top: 20px;
+  font-size: 35px;
+}
+
+#entryHolder{
+}
+
+#date{
+
+}
+
+#temp{
+
+}
+
+#content{
+
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
-label {
+label{
   display:block;
-  font-size: 18px;
+  font-size: 27px;
 }
 
-#date {
-  color: white;
-}
 
-input {
-  display:block;
-  height: 60px;
-  width: 320px;
-  font-size: 17px;
+input{
+  background:lightgray;
+  font-size: 20px;
   font-family: 'Oswald', sans-serif;
+  border: none;
 }
 
-button {
-  width: 200px;
-  height: 100px;
-  background-color: rgba(82, 124, 238, 0.938);
-  margin: 50px;
-  font-size: 26px;
-  font-family: 'Oswald', sans-serif;
-  color:  rgb(2, 5, 54);;
-  box-shadow: 2px 4px 5px #444;
+h1{
+  font-size: 60px;
 }
 
-textarea {
-  background:#22b2da;
-  font-size: 17px;
+textarea{
+  background:lightgray;
+  font-size: 20px;
   font-family: 'Oswald', sans-serif;
-  color: whitesmoke;
+  border: none;
+  /*grid-row: 1;*/
 }
-/* Reset style for HTML element on active to have no border*/
-input:focus,
-select:focus,
-textarea:focus,
+input:focus {
+  background-color: grey;
+  border: none;
+  outline: none;
+}
+select:focus {
+  background-color: grey;
+  border: none;
+  outline: none;
+}
+textarea:focus {
+  background-color: grey;
+  border: none;
+  outline: none;
+}
 button:focus {
   outline: none;
 }
+
+#generate {
+  display: inline-block;
+  padding: 5px 5px;
+  font-size: 40px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background-color: darkblue;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px #999;
+  width: 200px;
+  height: 100px;
+  font-family: 'Oswald', sans-serif;
+}
+
+#generate:hover {
+  background-color: blue;
+}
+
+#generate:active {
+  background-color: navy;
+  transform: translateY(4px);
+}
 /* Style for Placeholder Text*/
 ::placeholder { /* Firefox, Chrome, Opera */
-  color: wheat;
+  color: navy;
   font-family: 'Oswald', sans-serif;
+  border: none;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: navy;
   font-family: 'Oswald', sans-serif;
-  color: wheat;
+  border: none;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
+  color: navy;
   font-family: 'Oswald', sans-serif;
-  color: wheat;
+  border: none;
 }

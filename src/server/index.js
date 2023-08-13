@@ -21,8 +21,7 @@ app.use(express.static('dist'))
 
 // Setup Server
 const port = 3030;
-
-const server = app.listen(port, listening);
+server = app.listen(port, listening);
 
 function listening(){
     console.log('server running');
@@ -31,23 +30,22 @@ function listening(){
 //get function
 app.get('/', function (req, res) {res.sendFile(path.resolve('src/client/views/index.html'))})
 
-app.get('/all', allData);
+app.get('/all', sendData);
 
-function allData(request, response){
+function sendData(request, response){
     response.send(projectData);
 };
 
 //post function
 
-app.post('/add', addData);
+app.post('/add', postData);
 
-function addData(request, response){
-
-    let data = request.body;
-
-    projectData["temperature"] = data.temperature;
-    projectData["feelings"] = data.feelings;
-    projectData["date"] = data.date;
-
+function postData(request, response){
+    newPostData = {
+        temp: request.body.temp,
+        date: request.body.date,
+        content: request.body.content
+    }
+    projectData = newPostData;
     response.send(projectData);
 }
