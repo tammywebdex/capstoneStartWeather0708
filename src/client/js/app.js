@@ -1,7 +1,8 @@
 //Global Variables
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const apiKey = '&appid=be20ae21258e9d2f18529195894f2466&units=imperial';
-const serverURL = 'http://localhost:3000';
+const serverURL = 'http://localhost:3030';
+const userName = tammy_webdex;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -77,4 +78,3 @@ const updateUI = async () => {
         console.log('error', error);
     }
 }
-
