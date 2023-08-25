@@ -93,7 +93,10 @@ const getData = async (url = "") => {
             uiData.avgTemp = data[0].averageTemp;
             uiData.maxTemp = data[0].maxTemp;
             uiData.minTemp = data[0].minTemp;
-            updateUI(uiData.imageURL, uiData.avgTemp, uiData.maxTemp, uiData.minTemp, uiData.tripLength, uiData.countdownLength);
+            uiData.currency = data[0].currency;
+            uiData.language = data[0].language;
+            uiData.population = data[0].population;
+            updateUI(uiData.imageURL, uiData.avgTemp, uiData.maxTemp, uiData.minTemp, uiData.tripLength, uiData.countdownLength, uiData.currency, uiData.language, uiData.population);
         })
         .catch((err) => {
             console.log(err);
@@ -102,13 +105,16 @@ const getData = async (url = "") => {
 };
 
 // updating UI
-const updateUI = (imageURL, avgTemp, maxTemp, minTemp, tripLength, countdownLength) => {
+const updateUI = (imageURL, avgTemp, maxTemp, minTemp, tripLength, countdownLength, currency, language, population) => {
     const resultImage = document.getElementById("result_image");
     const avgTempPlaceholder = document.getElementById("avg_temp");
     const maxTempPlaceholder = document.getElementById("max_temp");
     const minTempPlaceholder = document.getElementById("min_temp");
     const tripDuration = document.getElementById("trip_duration");
     const tripCountDown = document.getElementById("count_down");
+    const factCurrency = document.getElementById('currency');
+    const factLanguage = document.getElementById('language');
+    const factPopulation = document.getElementById('population');
 
     resultImage.src = imageURL;
     avgTempPlaceholder.textContent = avgTemp + "°C";
@@ -116,6 +122,10 @@ const updateUI = (imageURL, avgTemp, maxTemp, minTemp, tripLength, countdownLeng
     minTempPlaceholder.textContent = minTemp + "°C";
     tripDuration.textContent = tripLength + " Days";
     tripCountDown.textContent = countdownLength + " Days";
+    factCurrency.textContent = currency;
+    factLanguage.textContent = language;
+    factPopulation.textContent = population;
+
 };
 
 module.exports = {

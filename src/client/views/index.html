@@ -9,7 +9,7 @@
     <div class="travel_planner">
         <div class="travel_planner_text">
             <h1>Holiday countdown and weather Predictor </h1>
-            <p>Wondering what the weather is likely to be for your holiday? Fill in the details here and submit!</p>
+            <p>Wondering what the weather is likely to be for your holiday? Fill in the details here and submit to find out!</p>
         </div>
         <div class="travel_planner_bottom">
             <form>
@@ -25,27 +25,36 @@
                 <div class="result_image">
                     <img id="result_image" src='/src/images/travelApp2.png' />
                     <a href="https://pixabay.com" target="_blank" rel="external nofollow" class="image_copyright"
-                    >Credit to Pixabay for photos</a
+                    ></a
                     >
                 </div>
                 <div class="result_weather">
                     <div class="result_weather_temp">
-                        <p id="error_message">Something is not right. Please check your information and resubmit.</p>
-                        <p>Predicted Weather Forecast (based on historic weather):</p>
+                        <p>Predicted Weather Forecast:</p>
                         <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
                         <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
                         <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
                         <br />
-                        <p>Trip Duration:</p>
+                        <h2>Trip Duration:</h2>
                         <span id="trip_duration">Days</span>
-                        <p>Countdown to trip:</p>
+                        <h2>Number of days until your holiday (and counting):</h2>
                         <span id="count_down">Days</span>
+                        <br />
+                        <h2>Interesting facts about the country you are visiting</h2>
+                        <span>Currency: </span><span id="currency"></span><br />
+                        <span>Language Spoken: </span><span id="language"></span><br />
+                        <span>Population:&nbsp;</span><span id="population"></span><br />
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+<footer><a href="http://www.geonames.org/"><button class="button">Credit to GeoNames</button></a>
+    <a href="https://www.weatherbit.io/"><button class="button">Credit to WeatherBit</button></a>
+    <a href="https://pixabay.com/"><button class="button">Credit to Pixabay</button></a>
+    <a href="https://restcountries.com/"><button class="button">Credit to RestCountries</button></a>
+</footer>
 
 </body>
 </html>
