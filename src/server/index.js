@@ -29,32 +29,32 @@ let weatherApiData = {};
 let pixApiData = {};
 let restCountryApiData = {};
 
-app.post("/postProjectData", async (request, response) => {
+app.post('/postProjectData', async (request, response) => {
     projectData = {
         destination: request.body.destination,
-        daysBetweenDates: request.body.daysBetweenDates,
-        daysCountDown: request.body.daysCountDown,
+        holDuration: request.body.holDuration,
+        holCountDown: request.body.holCountDown,
     };
-    await callApi(createGeonamesFetchLink(projectData.destination, geoKey));
-    response.status(200).send({ msg: "Data received" });
+    await apiCall(geoFetch(projectData.destination, geoKey));
+    response.status(200).send({ msg: "Received data" });
 });
 
-const createGeonamesFetchLink = (destination) => {
+const geoFetch = (destination) => {
     return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
 };
-const createWeatherbitFetchLink = (lat, lng) => {
+const weatherFetch = (lat, lng) => {
     return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
-const createRestCountriesFetchLink = (countryName) => {
+const restCountriesFetch = (countryName) => {
     return `https://restcountries.com/v3.1/name/&${countryName}`;
 };
 
-const createPixabayFetchLink = (destination) => {
+const pixaFetch = (destination) => {
     return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal&min_width=1400`;
 };
 
 // function to fetch data from different apis
-const callApi = async (url) => {
+const apiCall = async (url) => {
     try {
         await fetch(url)
             .then((res) => res.json())
@@ -67,7 +67,7 @@ const callApi = async (url) => {
                         lng: data.geonames[0].lng,
                         countryName: data.geonames[0].countryName,
                     };
-                    await callApi(createWeatherbitFetchLink(geoApiData.lat, geoApiData.lng));
+                    await apiCall(weatherFetch(geoApiData.lat, geoApiData.lng));
                     console.log(geoApiData);
                 }
                 if ("city_name" in data) {
@@ -80,13 +80,13 @@ const callApi = async (url) => {
                         tripLength: projectData.daysBetweenDates,
                         countdownLength: projectData.daysCountDown,
                     };
-                    await callApi(createPixabayFetchLink(projectData.destination));
+                    await apiCall(pixaFetch(projectData.destination));
                 }
                 if ("hits" in data) {
                     pixApiData = {
                         imageUrl: data.hits[0].webformatURL,
                     };
-                    await callApi(createRestCountriesFetchLink(geoApiData.countryName));
+                    await apiCall(restCountriesFetch(geoApiData.countryName));
                 }
                 if('countryName' in data) {
                     restCountryApiData = {
@@ -103,7 +103,7 @@ const callApi = async (url) => {
 
 app.get("/getData", (req, res) => {
     res.status(200).send([weatherApiData, pixApiData, restCountryApiData]);
-    console.log("Data was sent!");
+    console.log("Sent Data");
 });
 
 module.exports = app;

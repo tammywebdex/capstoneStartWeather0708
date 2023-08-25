@@ -1,93 +1,74 @@
-// Create a new date instance dynamically with JS
-let todaysDate = new Date();
 //global variables
+let todaysDate = new Date();
 const oneDay = 24 * 60 * 60 * 1000;
-const handleEvent = async (submitButton) => {
-    submitButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        handleSubmitData();
-    });
-
-    const handleSubmitData = async () => {
-        // getting form data
+export async function handleSubmit(event) {
+        event.preventDefault()
         const destination = document.getElementById("destination").value;
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
-
         try {
-            const daysBetweenDates = await calcDaysBetweenDates(startDate, endDate);
-            const daysCountDown = await calcDaysCountdown(todaysDate, startDate);
-
+            const holDuration = await workHolDuration(startDate, endDate);
+            const holCountDown = await workHolCountdown(todaysDate, startDate);
             console.log("POSTING DATA TO SERVER");
             /* Function to POST data */
-            const postData = async (url = "", data = {}) => {
-                const response = await fetch(url, {
-                    method: "POST",
-                    credentials: "same-origin",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    // Body data type must match "Content-Type" header
-                    body: JSON.stringify(data),
-                });
-
-                try {
-                    const newData = await response.json();
-                    return newData;
+const postData = async (url = "", data = {}) => {
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json",},
+        body: JSON.stringify(data),
+        });
+        try {
+             const newData = await response.json();
+             return newData;
                 } catch (error) {
                     console.log("Error: ", error);
                 }
             };
-            await postData("/sendFormData", { destination, startDate, endDate, daysBetweenDates, daysCountDown });
+            await postData("/postProjectData", { destination, startDate, endDate, holDuration, holCountDown });
             getData("/getData");
         } catch (error) {
             alert(error);
         }
-    };
 };
 
-// get the days between todays date and the travel date
-const calcDaysBetweenDates = (startDate, endDate) => {
-    //const oneDay = 24 * 60 * 60 * 1000;
+// Work out the holiday duration
+export const workHolDuration = (startDate, endDate) => {
     const firstDate = new Date(startDate);
     const secondDate = new Date(endDate);
-
-    const daysBetweenDates = Math.round(Math.abs((firstDate - secondDate) / oneDay));
-    // if secondDate lies in the past throw error
+    const holDuration = Math.round(Math.abs((firstDate - secondDate) / oneDay));
     if (firstDate > secondDate) {
         throw new Error("Choose a future date!");
     }
-    console.log(daysBetweenDates)
-    return daysBetweenDates;
+    console.log(holDuration)
+    return holDuration;
 };
-//var countDownDate = document.getElementById('startdate')
-const calcDaysCountdown = (todaysDate, startDate) => {
-    //const oneDay = 24 * 60 * 60 * 1000;
+//Work out holiday Count down
+export const workHolCountdown = (todaysDate, startDate) => {
     const firstCountDate = new Date(todaysDate);
     const secondCountDate = new Date(startDate);
-
-    const daysCountDown = Math.round(Math.abs((firstCountDate - secondCountDate) / oneDay));
-    // if secondDate lies in the past throw error
+    const holCountDown = Math.round(Math.abs((firstCountDate - secondCountDate) / oneDay));
     if (firstCountDate > secondCountDate) {
         throw new Error("Choose a future date!");
     }
-    console.log(daysCountDown)
-    return daysCountDown;
+    console.log(holCountDown)
+    return holCountDown;
 };
 
-let uiData = {};
-const errorMessage = document.getElementById("error_message");
+//let uiData = {};
+// const errorMessage = document.getElementById("error_message");
 
-/*Function to GET data*/
+//function to get data
 const getData = async (url = "") => {
     const response = await fetch(url, {
         method: "GET",
-    })
-        .then((response) => {
-            return response.json();
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json"},
+        })
+        .then((response) => {return response.json();
         })
         .then((data) => {
-            uiData.imageURL = data[1].imageUrl;
+            uiData.response_image = data[1].imageUrl;
             uiData.tripLength = data[0].tripLength;
             uiData.countdownLength = data[0].countdownLength;
             uiData.avgTemp = data[0].averageTemp;
@@ -96,16 +77,15 @@ const getData = async (url = "") => {
             uiData.currency = data[0].currency;
             uiData.language = data[0].language;
             uiData.population = data[0].population;
-            updateUI(uiData.imageURL, uiData.avgTemp, uiData.maxTemp, uiData.minTemp, uiData.tripLength, uiData.countdownLength, uiData.currency, uiData.language, uiData.population);
+            updateUI(uiData.response_image, uiData.avgTemp, uiData.maxTemp, uiData.minTemp, uiData.tripLength, uiData.countdownLength, uiData.currency, uiData.language, uiData.population);
         })
         .catch((err) => {
             console.log(err);
-            errorMessage.style.display = "block";
         });
 };
 
 // updating UI
-const updateUI = (imageURL, avgTemp, maxTemp, minTemp, tripLength, countdownLength, currency, language, population) => {
+export const updateUI = (imageURL, avgTemp, maxTemp, minTemp, tripLength, countdownLength, currency, language, population) => {
     const resultImage = document.getElementById("result_image");
     const avgTempPlaceholder = document.getElementById("avg_temp");
     const maxTempPlaceholder = document.getElementById("max_temp");
@@ -126,11 +106,4 @@ const updateUI = (imageURL, avgTemp, maxTemp, minTemp, tripLength, countdownLeng
     factLanguage.textContent = language;
     factPopulation.textContent = population;
 
-};
-
-module.exports = {
-    handleEvent,
-    calcDaysBetweenDates,
-    calcDaysCountdown,
-    updateUI,
 };

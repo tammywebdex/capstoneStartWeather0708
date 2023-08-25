@@ -5,51 +5,50 @@
     <title>Travel app</title>
 </head>
 <body>
-<main class="top_cst">
-    <div class="travel_planner">
-        <div class="travel_planner_text">
+<section>
+    <div class="head_heading">
             <h1>Holiday countdown and weather Predictor </h1>
+        <div class="head_description">
             <p>Wondering what the weather is likely to be for your holiday? Fill in the details here and submit to find out!</p>
         </div>
-        <div class="travel_planner_bottom">
+    </div>
+</section>
+<section>
+        <div class="holiday_input">
             <form>
-                <label for="destination">Destination:</label>
+                <label for="destination">Holiday destination city:</label>
                 <input type="text" id="destination" name="destination" placeholder="Destination" required />
-                <label for="startDate">Start date:</label>
+                <label for="startDate">First day of Holiday:</label>
                 <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required />
-                <label for="endDate">End date:</label>
+                <label for="endDate">Last Day of Holiday:</label>
                 <input type="date" id="endDate" name="endDate" placeholder="dd.mm.yyyy" required />
-                <input type="submit" id="submitFormData" value="Submit" />
+                <input type="submit" id="submit" value="Submit" />
             </form>
-            <div class="result_section">
-                <div class="result_image">
-                    <img id="result_image" src='/src/images/travelApp2.png' />
+        <div id="holiday_response">
+                    <img id="response_image" src='/src/images/travelApp2.png' />
                     <a href="https://pixabay.com" target="_blank" rel="external nofollow" class="image_copyright"
                     ></a
                     >
-                </div>
-                <div class="result_weather">
-                    <div class="result_weather_temp">
-                        <p>Predicted Weather Forecast:</p>
-                        <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
-                        <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
-                        <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
-                        <br />
-                        <h2>Trip Duration:</h2>
-                        <span id="trip_duration">Days</span>
-                        <h2>Number of days until your holiday (and counting):</h2>
-                        <span id="count_down">Days</span>
-                        <br />
-                        <h2>Interesting facts about the country you are visiting</h2>
-                        <span>Currency: </span><span id="currency"></span><br />
-                        <span>Language Spoken: </span><span id="language"></span><br />
-                        <span>Population:&nbsp;</span><span id="population"></span><br />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
+       </div>
+       <div id="weather_response">
+           <p>Predicted Weather Forecast (based on historic averages:</p>
+           <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
+           <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
+           <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
+       </div>
+       <div id="duration_response">
+           <h2>Trip Duration:</h2>
+           <span id="trip_duration">Days</span>
+           <h2>Number of days until your holiday (and counting):</h2>
+           <span id="count_down">Days</span>
+       </div>
+       <div id="facts_response">
+           <h2>Interesting facts about the country you are visiting</h2>
+           <span>Currency: </span><span id="currency"></span><br />
+           <span>Language Spoken: </span><span id="language"></span><br />
+           <span>Population:&nbsp;</span><span id="population"></span><br />
+       </div>
+</section>
 <footer><a href="http://www.geonames.org/"><button class="button">Credit to GeoNames</button></a>
     <a href="https://www.weatherbit.io/"><button class="button">Credit to WeatherBit</button></a>
     <a href="https://pixabay.com/"><button class="button">Credit to Pixabay</button></a>
