@@ -1,80 +1,111 @@
-//Global Variables
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&appid=be20ae21258e9d2f18529195894f2466&units=imperial';
-const serverURL = 'http://localhost:3000';
-
-// Create a new date instance dynamically with JS
-let d = new Date();
-let currentMonth = d.getMonth() + 1;
-let newDate = currentMonth + '.' + d.getDate() + '.' + d.getFullYear();
-
-//There should be an asynchronous function to fetch the data from the app endpoint ...
-const getWeatherData = async (baseURL, zipCode, apiKey) => {
-    const response = await fetch(baseURL + zipCode + apiKey);
-    try {
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.log("error", error);
-    }
-}
-// POST route setup on the server side and executed on the client side as an asynchronous function.
-// The client side function should take two arguments, the URL to make a POST to, and an object holding the data to POST.
-// The server side function should create a new entry in the apps endpoint
-// (the named JS object) consisting of the data received from the client side POST.
-const postData = async (data = {}) => {
-    const response = await fetch(serverURL + "/add", {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+//global variables
+let todaysDate = new Date();
+const oneDay = 24 * 60 * 60 * 1000;
+export async function handleSubmit(event) {
+        event.preventDefault()
+        const destination = document.getElementById("destination").value;
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        try {
+            const holDuration = await workHolDuration(startDate, endDate);
+            const holCountDown = await workHolCountdown(todaysDate, startDate);
+            console.log("POSTING DATA TO SERVER");
+            /* Function to POST data */
+const postData = async (url = "", data = {}) => {
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json",},
         body: JSON.stringify(data),
-    });
-    try {
-        const newData = await response.json();
-        return newData
-    } catch (error) {
-        console.log("error", error);
-    }
-}
-
-//Add an event listener to an existing HTML button from DOM using Vanilla JS.
-// In the file app.js, the element with the id of generate should have an addEventListener()
-// method called on it, with click as the first parameter, and a named callback function as the second parameter.
-export function activate(event) {
-    event.preventDefault();
-    const zipCode = document.getElementById('zip').value;
-    const userFeelings = document.getElementById('feelings').value;
-    getWeatherData(baseURL, zipCode, apiKey)
-        .then(function (data) {
-            const temp = data.main.temp;
-            postData({
-                temp: temp,
-                date: newDate,
-                content: userFeelings
-            })
-                .then(updateUI)
         });
-}
+        try {
+             const newData = await response.json();
+             return newData;
+                } catch (error) {
+                    console.log("Error: ", error);
+                }
+            };
+            await postData("/postProjectData", { destination, startDate, endDate, holDuration, holCountDown });
+            getData("/getData");
+        } catch (error) {
+            alert(error);
+        }
+};
 
-// Dynamically Update UI - Sets the properties of existing HTML elements from the DOM using Vanilla JavaScript.
-// Included in the async function to retrieve that app’s data on the client side,
-// existing DOM elements should have their innerHTML properties dynamically set according to data returned by the app route.
-const updateUI = async () => {
-    const response = await fetch(serverURL + "/all", {
-        method: 'GET',
-        credentials: 'same-origin',
-    });
-    try {
-        // Transform into JSON
-        const allData = await response.json()
-        // Write updated data to DOM elements
-        document.getElementById('temp').innerHTML = 'Temperature today: ' + Math.round(allData.temp) + ' degrees Fahrenheit';
-        document.getElementById('content').innerHTML = 'How you feel today: ' +  allData.content;
-        document.getElementById('date').innerHTML = 'Date: ' + allData.date;
-    } catch (error) {
-        console.log('error', error);
+// Work out the holiday duration
+export const workHolDuration = (startDate, endDate) => {
+    const firstDate = new Date(startDate);
+    const secondDate = new Date(endDate);
+    const holDuration = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+    if (firstDate > secondDate) {
+        throw new Error("Choose a future date!");
     }
-}
+    console.log(holDuration)
+    return holDuration;
+};
+//Work out holiday Count down
+export const workHolCountdown = (todaysDate, startDate) => {
+    const firstCountDate = new Date(todaysDate);
+    const secondCountDate = new Date(startDate);
+    const holCountDown = Math.round(Math.abs((firstCountDate - secondCountDate) / oneDay));
+    if (firstCountDate > secondCountDate) {
+        throw new Error("Choose a future date!");
+    }
+    console.log(holCountDown)
+    return holCountDown;
+};
 
+//let uiData = {};
+// const errorMessage = document.getElementById("error_message");
+
+//function to get data
+const getData = async (url = "") => {
+    const response = await fetch(url, {
+        method: "GET",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json"},
+        })
+        .then((response) => {return response.json();
+        })
+        .then((data) => {
+            updateUI.responseImage = data[1].imageUrl;
+            updateUI.holLength = data[0].holLength;
+            updateUI.countdownLength = data[0].countdownLength;
+            updateUI.avgTemp = data[0].averageTemp;
+            updateUI.maxTemp = data[0].maxTemp;
+            updateUI.minTemp = data[0].minTemp;
+            updateUI.currencies = data[0].currencies;
+            updateUI.languages = data[0].languages;
+            updateUI.population = data[0].population;
+            updateUI.subarea = data[0].subregion;
+            updateUI(updateUI.responseImage, updateUI.avgTemp, updateUI.maxTemp, updateUI.minTemp, updateUI.holLength, updateUI.countdownLength, updateUI.currencies, updateUI.languages, updateUI.population, updateUI.subarea);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+// updating UI
+export const updateUI = (imageURL, avgTemp, maxTemp, minTemp, holLength, countdownLength, currencies, languages, population, subregion) => {
+    const responseImage = document.getElementById("response_image");
+    const avgTempPlaceholder = document.getElementById("avg_temp");
+    const maxTempPlaceholder = document.getElementById("max_temp");
+    const minTempPlaceholder = document.getElementById("min_temp");
+    const holDuration = document.getElementById("hol_duration");
+    const holCountDown = document.getElementById("hol_countDown");
+    const factCurrencies = document.getElementById('fact_currencies');
+    const factLanguages = document.getElementById('fact_languages');
+    const factPopulation = document.getElementById('fact_population');
+    const factSubregion = document.getElementById('fact_subregion');
+
+    responseImage.src = imageURL;
+    avgTempPlaceholder.textContent = avgTemp + " Degrees Celcius";
+    maxTempPlaceholder.textContent = maxTemp + " Degrees Celcius";
+    minTempPlaceholder.textContent = minTemp + " Degrees Celcius";
+    holDuration.textContent = holLength + " Days of Holiday Bliss";
+    holCountDown.textContent = countdownLength + " Days";
+    factCurrencies.textContent = currencies;
+    factLanguages.textContent = languages;
+    factPopulation.textContent = population;
+    factSubregion.textContent = subregion;
+};

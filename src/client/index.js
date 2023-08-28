@@ -1,12 +1,12 @@
-import {activate} from './js/app';
+import { handleSubmit, workHolDuration, workHolCountdown, updateUI } from "./js/app";
+
 import './styles/style.scss';
-console.log(activate);
-alert("I EXIST")
+import '/src/images/travelApp2.png';
+//const submitButton = document.getElementById("submitFormData");
+//handleEvent(submitButton);
 window.addEventListener("DOMContentLoaded", (event) => {
     console.log("DOM loaded");
-    const generate = document.getElementById('generate');
-    generate.addEventListener('click', activate)})
-//const generate = document.getElementById('generate');
-//generate.addEventListener ('click', performAction)})
+    document.querySelector('form').addEventListener('submit', handleSubmit);
+});
 
-//export {performAction};
+export { handleSubmit, workHolDuration, workHolCountdown, updateUI };

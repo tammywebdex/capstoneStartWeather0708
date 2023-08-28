@@ -1,23 +1,14 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = {};
-
-// Require Express to run server and routes
+const dotenv = require('dotenv');
+dotenv.config();
+const fetch = require('node-fetch');
 const express = require('express');
-
-// Start up an instance of app
 const app = express();
-/* Middleware*/
-//Here we are configuring express to use body-parser as middle-ware.
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// Cors for cross origin allowance
 const cors = require('cors');
 app.use(cors());
-// Initialize the main project folder
 app.use(express.static('dist'))
-
 
 // Setup Server
 const port = 3030;
@@ -27,25 +18,91 @@ function listening(){
     console.log('server running');
     console.log(`running on localhost: ${port}`);
 }
-//get function
-app.get('/', function (req, res) {res.sendFile(path.resolve('src/client/views/index.html'))})
+//global variables
+const geoKey = process.env.Geonames_API_ID;
+const weatherKey = process.env.WeatherBit_Key;
+const pixKey = process.env.Pixabay_API_KEY;
+//endpoints
+let projectData = {};
+let geoApiData = {};
+let weatherApiData = {};
+let pixApiData = {};
+let restCountryApiData = {};
 
-app.get('/all', sendData);
+app.post('/postProjectData', async (request, response) => {
+    projectData = {
+        destination: request.body.destination,
+        holDuration: request.body.holDuration,
+        holCountDown: request.body.holCountDown,
+    };
+    await apiCall(geoFetch(projectData.destination, geoKey));
+    response.status(200).send({ msg: "Received data" });
+});
 
-function sendData(request, response){
-    response.send(projectData);
+const geoFetch = (destination) => {
+    return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
+};
+const weatherFetch = (lat, lng) => {
+    return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
+};
+const restCountriesFetch = (countryName) => {
+    return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=currencies,languages,population,subregion`;
+};
+const pixaFetch = (destination) => {
+    return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
 };
 
-//post function
-
-app.post('/add', postData);
-
-function postData(request, response){
-    newPostData = {
-        temp: request.body.temp,
-        date: request.body.date,
-        content: request.body.content
+// function to fetch data from different apis
+const apiCall = async (url) => {
+    try {
+        await fetch(url)
+            .then((res) => res.json())
+            .then(async (data) => {
+                console.log("Data is: ", data);
+                // Geonames check
+                if ("geonames" in data) {
+                    geoApiData = {
+                        lat: data.geonames[0].lat,
+                        lng: data.geonames[0].lng,
+                        countryName: data.geonames[0].countryName,
+                    };
+                    await apiCall(weatherFetch(geoApiData.lat, geoApiData.lng));
+                    console.log(geoApiData);
+                }
+                if ("city_name" in data) {
+                    // console.log(data); for debugging purpose only
+                    weatherApiData = {
+                        averageTemp: data.data[0].temp,
+                        minTemp: data.data[0].min_temp,
+                        maxTemp: data.data[0].max_temp,
+                        holLength: projectData.holDuration,
+                        countdownLength: projectData.holCountDown,
+                    };
+                    await apiCall(pixaFetch(projectData.destination));
+                }
+                if ("hits" in data) {
+                    pixApiData = {
+                        imageUrl: data.hits[0].webformatURL,
+                    };
+                    await apiCall(restCountriesFetch(geoApiData.countryName));
+                }
+                if('countryName' in data) {
+                    restCountryApiData = {
+                        currencies: data.data[0].currencies,
+                        languages: data.data[0].languages,
+                        population: data.data[0].population,
+                        subregion: data.data[0].subregion,
+                    };
+                }
+            });
+    } catch (err) {
+        console.log("Error: " + err);
     }
-    projectData = newPostData;
-    response.send(projectData);
-}
+};
+
+app.get("/getData", (req, res) => {
+    res.status(200).send([weatherApiData, pixApiData, restCountryApiData]);
+    console.log("Sent Data");
+});
+
+module.exports = app;
