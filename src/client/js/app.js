@@ -77,7 +77,7 @@ const getData = async (url = "") => {
             updateUI.currencies = data[0].currencies;
             updateUI.languages = data[0].languages;
             updateUI.population = data[0].population;
-            updateUI.subarea = data[0].subarea;
+            updateUI.subarea = data[0].subregion;
             updateUI(updateUI.responseImage, updateUI.avgTemp, updateUI.maxTemp, updateUI.minTemp, updateUI.holLength, updateUI.countdownLength, updateUI.currencies, updateUI.languages, updateUI.population, updateUI.subarea);
         })
         .catch((err) => {

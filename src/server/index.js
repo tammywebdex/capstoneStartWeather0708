@@ -46,7 +46,7 @@ const weatherFetch = (lat, lng) => {
     return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
 const restCountriesFetch = (countryName) => {
-    return `https://restcountries.com/v3.1/name/${countryName}`;
+    return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=currencies,languages,population,subregion`;
 };
 const pixaFetch = (destination) => {
     return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
