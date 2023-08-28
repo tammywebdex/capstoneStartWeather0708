@@ -46,11 +46,10 @@ const weatherFetch = (lat, lng) => {
     return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
 const restCountriesFetch = (countryName) => {
-    return `https://restcountries.com/v3.1/name/&${countryName}`;
+    return `https://restcountries.com/v3.1/name/${countryName}`;
 };
-
 const pixaFetch = (destination) => {
-    return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal&min_width=1400`;
+    return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
 };
 
 // function to fetch data from different apis
@@ -76,9 +75,8 @@ const apiCall = async (url) => {
                         averageTemp: data.data[0].temp,
                         minTemp: data.data[0].min_temp,
                         maxTemp: data.data[0].max_temp,
-                        iconCode: data.data[0].weather.icon,
-                        tripLength: projectData.daysBetweenDates,
-                        countdownLength: projectData.daysCountDown,
+                        holLength: projectData.holDuration,
+                        countdownLength: projectData.holCountDown,
                     };
                     await apiCall(pixaFetch(projectData.destination));
                 }
@@ -90,9 +88,10 @@ const apiCall = async (url) => {
                 }
                 if('countryName' in data) {
                     restCountryApiData = {
-                        currency: data.data[0].currency,
+                        currencies: data.data[0].currencies,
                         languages: data.data[0].languages,
                         population: data.data[0].population,
+                        subregion: data.data[0].subregion,
                     };
                 }
             });

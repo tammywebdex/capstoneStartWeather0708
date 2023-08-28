@@ -6,8 +6,7 @@ import '/src/images/travelApp2.png';
 //handleEvent(submitButton);
 window.addEventListener("DOMContentLoaded", (event) => {
     console.log("DOM loaded");
-//Add event listener to submit
-    document.getElementById('submit').addEventListener("click", handleSubmit);
+    document.querySelector('form').addEventListener('submit', handleSubmit);
 });
 
 export { handleSubmit, workHolDuration, workHolCountdown, updateUI };

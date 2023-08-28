@@ -68,16 +68,17 @@ const getData = async (url = "") => {
         .then((response) => {return response.json();
         })
         .then((data) => {
-            uiData.response_image = data[1].imageUrl;
-            uiData.tripLength = data[0].tripLength;
-            uiData.countdownLength = data[0].countdownLength;
-            uiData.avgTemp = data[0].averageTemp;
-            uiData.maxTemp = data[0].maxTemp;
-            uiData.minTemp = data[0].minTemp;
-            uiData.currency = data[0].currency;
-            uiData.language = data[0].language;
-            uiData.population = data[0].population;
-            updateUI(uiData.response_image, uiData.avgTemp, uiData.maxTemp, uiData.minTemp, uiData.tripLength, uiData.countdownLength, uiData.currency, uiData.language, uiData.population);
+            updateUI.responseImage = data[1].imageUrl;
+            updateUI.holLength = data[0].holLength;
+            updateUI.countdownLength = data[0].countdownLength;
+            updateUI.avgTemp = data[0].averageTemp;
+            updateUI.maxTemp = data[0].maxTemp;
+            updateUI.minTemp = data[0].minTemp;
+            updateUI.currencies = data[0].currencies;
+            updateUI.languages = data[0].languages;
+            updateUI.population = data[0].population;
+            updateUI.subarea = data[0].subarea;
+            updateUI(updateUI.responseImage, updateUI.avgTemp, updateUI.maxTemp, updateUI.minTemp, updateUI.holLength, updateUI.countdownLength, updateUI.currencies, updateUI.languages, updateUI.population, updateUI.subarea);
         })
         .catch((err) => {
             console.log(err);
@@ -85,25 +86,26 @@ const getData = async (url = "") => {
 };
 
 // updating UI
-export const updateUI = (imageURL, avgTemp, maxTemp, minTemp, tripLength, countdownLength, currency, language, population) => {
-    const resultImage = document.getElementById("result_image");
+export const updateUI = (imageURL, avgTemp, maxTemp, minTemp, holLength, countdownLength, currencies, languages, population, subregion) => {
+    const responseImage = document.getElementById("response_image");
     const avgTempPlaceholder = document.getElementById("avg_temp");
     const maxTempPlaceholder = document.getElementById("max_temp");
     const minTempPlaceholder = document.getElementById("min_temp");
-    const tripDuration = document.getElementById("trip_duration");
-    const tripCountDown = document.getElementById("count_down");
-    const factCurrency = document.getElementById('currency');
-    const factLanguage = document.getElementById('language');
-    const factPopulation = document.getElementById('population');
+    const holDuration = document.getElementById("hol_duration");
+    const holCountDown = document.getElementById("hol_countDown");
+    const factCurrencies = document.getElementById('fact_currencies');
+    const factLanguages = document.getElementById('fact_languages');
+    const factPopulation = document.getElementById('fact_population');
+    const factSubregion = document.getElementById('fact_subregion');
 
-    resultImage.src = imageURL;
-    avgTempPlaceholder.textContent = avgTemp + "°C";
-    maxTempPlaceholder.textContent = maxTemp + "°C";
-    minTempPlaceholder.textContent = minTemp + "°C";
-    tripDuration.textContent = tripLength + " Days";
-    tripCountDown.textContent = countdownLength + " Days";
-    factCurrency.textContent = currency;
-    factLanguage.textContent = language;
+    responseImage.src = imageURL;
+    avgTempPlaceholder.textContent = avgTemp + " Degrees Celcius";
+    maxTempPlaceholder.textContent = maxTemp + " Degrees Celcius";
+    minTempPlaceholder.textContent = minTemp + " Degrees Celcius";
+    holDuration.textContent = holLength + " Days of Holiday Bliss";
+    holCountDown.textContent = countdownLength + " Days";
+    factCurrencies.textContent = currencies;
+    factLanguages.textContent = languages;
     factPopulation.textContent = population;
-
+    factSubregion.textContent = subregion;
 };
