@@ -45,8 +45,8 @@ const geoFetch = (destination) => {
 const weatherFetch = (lat, lng) => {
     return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
-const restCountriesFetch = (countryName) => {
-    return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=currencies,languages,population,subregion`;
+const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=`;
+
 };
 const pixaFetch = (destination) => {
     return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
@@ -60,7 +60,7 @@ const apiCall = async (url) => {
             .then(async (data) => {
                 console.log("Data is: ", data);
                 // Geonames check
-                if ("geonames" in data) {
+                if ('geonames' in data) {
                     geoApiData = {
                         lat: data.geonames[0].lat,
                         lng: data.geonames[0].lng,
@@ -69,7 +69,7 @@ const apiCall = async (url) => {
                     await apiCall(weatherFetch(geoApiData.lat, geoApiData.lng));
                     console.log(geoApiData);
                 }
-                if ("city_name" in data) {
+                if ('city_name' in data) {
                     // console.log(data); for debugging purpose only
                     weatherApiData = {
                         averageTemp: data.data[0].temp,
@@ -80,7 +80,7 @@ const apiCall = async (url) => {
                     };
                     await apiCall(pixaFetch(projectData.destination));
                 }
-                if ("hits" in data) {
+                if ('hits' in data) {
                     pixApiData = {
                         imageUrl: data.hits[0].webformatURL,
                     };
@@ -88,10 +88,10 @@ const apiCall = async (url) => {
                 }
                 if('countryName' in data) {
                     restCountryApiData = {
-                        currencies: data.data[0].currencies,
-                        languages: data.data[0].languages,
-                        population: data.data[0].population,
-                        subregion: data.data[0].subregion,
+                        factCurrencies: data.data[0].currencies,
+                        factLanguages: data.data[0].languages,
+                        factPopulation: data.data[0].population,
+                        factSubregion: data.data[0].subregion,
                     };
                 }
             });
