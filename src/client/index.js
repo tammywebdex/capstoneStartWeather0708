@@ -1,7 +1,7 @@
-import { handleSubmit, workHolDuration, workHolCountdown, updateUI } from "./js/app";
+import { handleSubmit, workHolDuration, workHolCountdown, getData} from "./js/app";
 
 import './styles/style.scss';
-import '/src/images/travelApp2.png';
+import '/src/client/media/travelApp2.png';
 //const submitButton = document.getElementById("submitFormData");
 //handleEvent(submitButton);
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -9,4 +9,4 @@ window.addEventListener("DOMContentLoaded", (event) => {
     document.querySelector('form').addEventListener('submit', handleSubmit);
 });
 
-export { handleSubmit, workHolDuration, workHolCountdown, updateUI };
+export { handleSubmit, workHolDuration, workHolCountdown, getData};

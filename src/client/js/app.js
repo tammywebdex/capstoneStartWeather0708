@@ -25,8 +25,8 @@ const postData = async (url = "", data = {}) => {
                     console.log("Error: ", error);
                 }
             };
-            await postData("/postProjectData", { destination, startDate, endDate, holDuration, holCountDown });
-            getData("/getData");
+            await postData('/postProjectData', { destination, startDate, endDate, holDuration, holCountDown });
+            getData('/getData');
         } catch (error) {
             alert(error);
         }
@@ -59,53 +59,28 @@ export const workHolCountdown = (todaysDate, startDate) => {
 // const errorMessage = document.getElementById("error_message");
 
 //function to get data
-const getData = async (url = "") => {
+export const getData = async (url = "") => {
     const response = await fetch(url, {
         method: "GET",
         credentials: "same-origin",
         headers: {"Content-Type": "application/json"},
-        })
+    })
         .then((response) => {return response.json();
         })
         .then((data) => {
-            updateUI.responseImage = data[1].imageUrl;
-            updateUI.holLength = data[0].holLength;
-            updateUI.countdownLength = data[0].countdownLength;
-            updateUI.avgTemp = data[0].averageTemp;
-            updateUI.maxTemp = data[0].maxTemp;
-            updateUI.minTemp = data[0].minTemp;
-            updateUI.currencies = data[0].currencies;
-            updateUI.languages = data[0].languages;
-            updateUI.population = data[0].population;
-            updateUI.subarea = data[0].subregion;
-            updateUI(updateUI.responseImage, updateUI.avgTemp, updateUI.maxTemp, updateUI.minTemp, updateUI.holLength, updateUI.countdownLength, updateUI.currencies, updateUI.languages, updateUI.population, updateUI.subarea);
+            document.getElementById('response_image').src = data[1].imageUrl;
+            //document.getElementById('fact_flag').innerHTML = data[0].factFlag + " Country name";
+            document.getElementById('avg_temp').innerHTML = data[0].averageTemp + " Degrees Celcius";
+            document.getElementById('max_temp').innerHTML = data[0].maxTemp + " Degrees Celcius";
+            document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
+            document.getElementById('hol_duration').innerHTML = data[0].holLength + ' days of holiday bliss';
+            document.getElementById('hol_countDown').innerHTML = data[0].countdownLength + ' days';
+            document.getElementById('fact_currencies').innerHTML = data[0].factCurrencies;
+            document.getElementById('fact_languages').innerHTML = data[0].factLanguages;
+            document.getElementById('fact_population').innerHTML = data[0].factPopulation;
+            document.getElementById('fact_subregion').innerHTML = data[0].factSubregion;
         })
         .catch((err) => {
             console.log(err);
         });
-};
-
-// updating UI
-export const updateUI = (imageURL, avgTemp, maxTemp, minTemp, holLength, countdownLength, currencies, languages, population, subregion) => {
-    const responseImage = document.getElementById("response_image");
-    const avgTempPlaceholder = document.getElementById("avg_temp");
-    const maxTempPlaceholder = document.getElementById("max_temp");
-    const minTempPlaceholder = document.getElementById("min_temp");
-    const holDuration = document.getElementById("hol_duration");
-    const holCountDown = document.getElementById("hol_countDown");
-    const factCurrencies = document.getElementById('fact_currencies');
-    const factLanguages = document.getElementById('fact_languages');
-    const factPopulation = document.getElementById('fact_population');
-    const factSubregion = document.getElementById('fact_subregion');
-
-    responseImage.src = imageURL;
-    avgTempPlaceholder.textContent = avgTemp + " Degrees Celcius";
-    maxTempPlaceholder.textContent = maxTemp + " Degrees Celcius";
-    minTempPlaceholder.textContent = minTemp + " Degrees Celcius";
-    holDuration.textContent = holLength + " Days of Holiday Bliss";
-    holCountDown.textContent = countdownLength + " Days";
-    factCurrencies.textContent = currencies;
-    factLanguages.textContent = languages;
-    factPopulation.textContent = population;
-    factSubregion.textContent = subregion;
 };
