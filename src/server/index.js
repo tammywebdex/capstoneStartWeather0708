@@ -44,8 +44,8 @@ app.post('/postProjectData', async (request, response) => {
 const geoFetch = (destination) => {
     return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
 };
-const weatherFetch = (lat, lng) => {
-    return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
+const weatherFetch = (lat, lng, startDate, endDate) => {
+    return `http://api.weatherbit.io/v2.0/normals?lat=${lat}&lon=${lng}&start_day=${startDate}&end_day=${endDate}&tp=daily&key=${weatherKey}`;
 };
 const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=`;
 
