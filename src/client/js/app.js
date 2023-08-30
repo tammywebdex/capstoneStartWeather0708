@@ -9,7 +9,7 @@ export async function handleSubmit(event) {
         try {
             const holDuration = await workHolDuration(startDate, endDate);
             const holCountDown = await workHolCountdown(todaysDate, startDate);
-            console.log("POSTING DATA TO SERVER");
+            console.log('Posting dates to server');
             /* Function to POST data */
 const postData = async (url = "", data = {}) => {
     const response = await fetch(url, {
@@ -38,7 +38,7 @@ export const workHolDuration = (startDate, endDate) => {
     const secondDate = new Date(endDate);
     const holDuration = Math.round(Math.abs((firstDate - secondDate) / oneDay));
     if (firstDate > secondDate) {
-        throw new Error("Choose a future date!");
+        throw new Error('Date is in the past. Please select a valid date in the future!');
     }
     console.log(holDuration)
     return holDuration;
@@ -49,7 +49,7 @@ export const workHolCountdown = (todaysDate, startDate) => {
     const secondCountDate = new Date(startDate);
     const holCountDown = Math.round(Math.abs((firstCountDate - secondCountDate) / oneDay));
     if (firstCountDate > secondCountDate) {
-        throw new Error("Choose a future date!");
+        throw new Error('Date is in the past. Please select a valid date in the future!');
     }
     console.log(holCountDown)
     return holCountDown;

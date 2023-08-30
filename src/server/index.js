@@ -37,6 +37,7 @@ app.post('/postProjectData', async (request, response) => {
         startDate: request.body.startDate,
         endDate: request.body.endDate,
     };
+    console.log(projectData);
     await apiCall(geoFetch(projectData.destination, geoKey));
     response.status(200).send({ msg: "Received data" });
 });
@@ -44,8 +45,8 @@ app.post('/postProjectData', async (request, response) => {
 const geoFetch = (destination) => {
     return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
 };
-const weatherFetch = (lat, lng, startDate, endDate) => {
-    return `http://api.weatherbit.io/v2.0/normals?lat=${lat}&lon=${lng}&start_day=${startDate}&end_day=${endDate}&tp=daily&key=${weatherKey}`;
+const weatherFetch = (lat, lng) => {
+    `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
 const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=`;
 
@@ -77,6 +78,7 @@ const apiCall = async (url) => {
                         averageTemp: data.data[0].temp,
                         minTemp: data.data[0].min_temp,
                         maxTemp: data.data[0].max_temp,
+                        weatherIcon: data.data[0].weather.icon,
                         holLength: projectData.holDuration,
                         countdownLength: projectData.holCountDown,
                     };
