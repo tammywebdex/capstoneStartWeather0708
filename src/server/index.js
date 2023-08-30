@@ -46,7 +46,7 @@ const geoFetch = (destination) => {
     return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
 };
 const weatherFetch = (lat, lng) => {
-    `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
+    return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
 const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=`;
 

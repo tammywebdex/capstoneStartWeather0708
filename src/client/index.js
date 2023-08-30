@@ -1,11 +1,11 @@
 import { handleSubmit, workHolDuration, workHolCountdown, getData} from "./js/app";
 
 import './styles/style.scss';
-import '/src/client/assets/images/travelApp2.png';
-function importAll(r) {
-    return r.keys().map(r);
-}
-importAll(require.context("./src/client/assets/icons", false, /\.(svg)$/));
+//import '/src/client/assets/images/travelApp2.jpg';
+//function importAll(r) {
+//     return r.keys().map(r);
+// }
+// importAll(require.context("./src/client/assets/icons/a01d.png", false, /\.(png)$/));
 //const submitButton = document.getElementById("submitFormData");
 //handleEvent(submitButton);
 window.addEventListener("DOMContentLoaded", (event) => {

@@ -22,21 +22,22 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
             {
-                test: /\.(png|jpeg)$/i,
+                test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+                // More information here https://webpack.js.org/guides/asset-modules/
                 type: "asset",
             },
-            {
-                test: /([a-z][0-9]{2}[a-z])\.(svg)$/i,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: '[name].[ext]', // remove [path]
-                            outputPath: 'assets/icons',
-                        }
-                    }
-                ]
-            }
+            //{
+            //                 test: /([a-z][0-9]{2}[a-z])\.(png)$/i,
+            //                 use: [
+            //                     {
+            //                         loader: "file-loader",
+            //                         options: {
+            //                             name: '[name].[ext]', // remove [path]
+            //                             outputPath: 'assets/icons',
+            //                         }
+            //                     }
+            //                 ]
+            //             }
         ]
     },
     plugins: [
