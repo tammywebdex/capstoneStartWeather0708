@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+<html lang="en" dir="ltr"></html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Travel app</title>
+    <meta charset='UTF-8' />
+    <title>Travel application</title>
 </head>
 <body>
 <section>
-    <div class="head_heading">
-            <h1>Holiday countdown and weather Predictor </h1>
-        <div class="head_description">
+    <div id="head_heading">
+            <h1>Holiday Weather Predictor Application </h1>
+        <div id="head_description">
             <p>Wondering what the weather is likely to be for your holiday? Fill in the details here and submit to find out!</p>
         </div>
     </div>
@@ -19,9 +20,9 @@
                 <label for="destination">Holiday destination city:</label>
                 <input type="text" id="destination" name="destination" placeholder="Destination" required />
                 <label for="startDate">First day of Holiday:</label>
-                <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required />
+                <input type="date" id="startDate" name="startDate" placeholder="mm-dd" required />
                 <label for="endDate">Last Day of Holiday:</label>
-                <input type="date" id="endDate" name="endDate" placeholder="dd.mm.yyyy" required />
+                <input type="date" id="endDate" name="endDate" placeholder="mm-dd" required />
                 <input type="submit" id="submit" value="Submit" />
             </form>
         <div id="holiday_response">
@@ -39,8 +40,7 @@
        <div id="duration_response">
            <h2>Trip Duration:</h2>
            <span id="hol_duration">Days</span>
-           <h2>Number of days until your holiday (and counting):</h2>
-           <span id="hol_countDown">Days</span>
+           <h2>Your holiday begins in T-minus <span id="hol_countDown">Days! </span></h2>
        </div>
        <div id="facts_response">
            <h2>Interesting facts about the country you are visiting</h2>

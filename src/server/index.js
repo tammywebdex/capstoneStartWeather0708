@@ -34,6 +34,8 @@ app.post('/postProjectData', async (request, response) => {
         destination: request.body.destination,
         holDuration: request.body.holDuration,
         holCountDown: request.body.holCountDown,
+        startDate: request.body.startDate,
+        endDate: request.body.endDate,
     };
     await apiCall(geoFetch(projectData.destination, geoKey));
     response.status(200).send({ msg: "Received data" });
