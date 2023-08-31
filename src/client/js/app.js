@@ -74,10 +74,6 @@ export const getData = async (url = "") => {
             document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
             document.getElementById('hol_duration').innerHTML = data[0].holDuration + ' days of holiday bliss';
             document.getElementById('hol_countDown').innerHTML = data[0].holCountDown + ' days';
-            document.getElementById('fact_currencies').innerHTML = data[0].factCurrencies;
-            document.getElementById('fact_languages').innerHTML = data[0].factLanguages;
-            document.getElementById('fact_population').innerHTML = data[0].factPopulation;
-            document.getElementById('fact_subregion').innerHTML = data[0].factSubregion;
         })
         .catch((err) => {
             console.log(err);
