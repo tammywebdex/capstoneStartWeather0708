@@ -73,6 +73,10 @@ export const getData = async (url = "") => {
             document.getElementById('avg_temp').innerHTML = data[0].averageTemp + " Degrees Celcius";
             document.getElementById('max_temp').innerHTML = data[0].maxTemp + " Degrees Celcius";
             document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
+            //document.getElementById('icon').src = data[0].weatherIcon;
+            //document.getElementById('icon').src = `./client/assets/icons/${data[0].weatherIcon}.png`;
+            //document.getElementById('icon').src = `${data[0].weatherIcon}.png`;
+            //document.getElementById('icon').innerHTML = `<img src="../media/icons/${data.data[days].weather.icon}.png" alt= "${data.data[days].weather.description}"></img>`
             document.getElementById('hol_duration').innerHTML = data[0].holLength + ' days of holiday bliss';
             document.getElementById('hol_countDown').innerHTML = data[0].countdownLength + ' days';
             document.getElementById('fact_currencies').innerHTML = data[0].factCurrencies;

@@ -27,85 +27,92 @@ let projectData = {};
 let geoApiData = {};
 let weatherApiData = {};
 let pixApiData = {};
-let restCountryApiData = {};
+let restApiData = {};
 
-app.post('/postProjectData', async (request, response) => {
+app.post('/addProjectData', async (request, response) => {
     projectData = {
         destination: request.body.destination,
         holDuration: request.body.holDuration,
         holCountDown: request.body.holCountDown,
-        startDate: request.body.startDate,
-        endDate: request.body.endDate,
     };
     console.log(projectData);
-    await apiCall(geoFetch(projectData.destination, geoKey));
+    return(projectData);
     response.status(200).send({ msg: "Received data" });
-});
 
-const geoFetch = (destination) => {
-    return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
-};
-const weatherFetch = (lat, lng) => {
-    return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
-};
-const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=`;
-
-};
-const pixaFetch = (destination) => {
-    return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
-};
-
-// function to fetch data from different apis
-const apiCall = async (url) => {
-    try {
-        await fetch(url)
-            .then((res) => res.json())
-            .then(async (data) => {
-                console.log("Data is: ", data);
-                // Geonames check
-                if ('geonames' in data) {
-                    geoApiData = {
-                        lat: data.geonames[0].lat,
-                        lng: data.geonames[0].lng,
-                        countryName: data.geonames[0].countryName,
-                    };
-                    await apiCall(weatherFetch(geoApiData.lat, geoApiData.lng));
-                    console.log(geoApiData);
-                }
-                if ('city_name' in data) {
-                    // console.log(data); for debugging purpose only
-                    weatherApiData = {
-                        averageTemp: data.data[0].temp,
-                        minTemp: data.data[0].min_temp,
-                        maxTemp: data.data[0].max_temp,
-                        weatherIcon: data.data[0].weather.icon,
-                        holLength: projectData.holDuration,
-                        countdownLength: projectData.holCountDown,
-                    };
-                    await apiCall(pixaFetch(projectData.destination));
-                }
-                if ('hits' in data) {
-                    pixApiData = {
-                        imageUrl: data.hits[0].webformatURL,
-                    };
-                    await apiCall(restCountriesFetch(geoApiData.countryName));
-                }
-                if('countryName' in data) {
-                    restCountryApiData = {
-                        factCurrencies: data.data[0].currencies,
-                        factLanguages: data.data[0].languages,
-                        factPopulation: data.data[0].population,
-                        factSubregion: data.data[0].subregion,
-                    };
-                }
+app.post('/getGeoApiData', async(request, response) =>{
+        const getGeoData = await fetch(`http://api.geonames.org/searchJSON?name=${projectData.destination}&maxRows=1&username=${geoKey}`,
+            {method: "POST",
+                credentials: "same-origin",
+                headers: {"Content-Type": "application/json",},
+                body: JSON.stringify(data),
             });
-    } catch (err) {
-        console.log("Error: " + err);
-    }
-};
+        try {
+            const geoData = await getGeoData.json();
+            geoApiData['country'] = geoData.data[0].countryName;
+            geoApiData['lat'] = geoData.data[0].lat;
+            geoApiData['lng'] = geoData.data[0].lng;
+            console.log(geoApiData);
+            response.send(geoApiData);
+        }catch(error){
+            console.log("error", error);
+        }})
+    });
 
+app.post('/getWeatherApiData', async(request, response)=>{
+    const getWeatherData = await fetch(`http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${geoApiData.lat}&lon=${geoApiData.lng}`,{
+        method: "POST",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json",},
+        body: JSON.stringify(data),
+    });
+    try {
+        const weatherData = await getWeatherData.json();
+        weatherApiData['averageTemp'] = weatherData.data[0].temp;
+        weatherApiData['minTemp'] = weatherData.data[0].min_temp;
+        weatherApiData['maxTemp'] = weatherData.data[0].max_temp;
+        //weatherApiData['weatherIcon'] = weatherData.data[0].weather.icon;
+        console.log(weatherApiData);
+        response.send(weatherApiData);
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+});
+app.get('/getRestApiData', async(request, response)=>{
+    const getRestData = await fetch(`https://restcountries.com/v3.1/name/${geoApiData.country}?status=true&fields=currencies,languages,population`,{
+        method: "POST",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json",},
+        body: JSON.stringify(data),
+    });
+    try {
+        const restData = await getRestData.json();
+        restApiData['currencies'] = restData.data[0].currencies;
+        geoApiData['languages'] = restData.data[0].languages;
+        geoApiData['population'] = restData.data[0].population;
+        console.log(restApiData);
+        response.send(restApiData);
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+});
+app.post('/getPixApiData', async(request,response)=>{
+    const getPixData = fetch(`https://pixabay.com/api/?key=${pixKey}&q=${geoApiData.destination}&image_type=photo&orientation=horizontal`,{
+        method: "POST",
+        credentials: "same-origin",
+        headers: {"Content-Type": "application/json",},
+        body: JSON.stringify(data),
+    });
+    try {
+        const pixData = await getPixData.json();
+        pixApiData['imageUrl'] = pixData.hits[0].webformatURL;
+        console.log(pixApiData);
+        response.send(pixApiData);
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+});
 app.get("/getData", (req, res) => {
-    res.status(200).send([weatherApiData, pixApiData, restCountryApiData]);
+    res.status(200).send([projectData, weatherApiData, pixApiData, restApiData]);
     console.log("Sent Data");
 });
 

@@ -1,7 +1,7 @@
 import { handleSubmit, workHolDuration, workHolCountdown, getData} from "./js/app";
 
 import './styles/style.scss';
-//import '/src/client/assets/images/travelApp2.jpg';
+import './assets/images/travelApp2.jpg';
 //function importAll(r) {
 //     return r.keys().map(r);
 // }
