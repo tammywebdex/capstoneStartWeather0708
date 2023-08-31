@@ -75,8 +75,8 @@ const apiCall = async (url) => {
                         averageTemp: data.data[0].temp,
                         minTemp: data.data[0].min_temp,
                         maxTemp: data.data[0].max_temp,
-                        holLength: projectData.holDuration,
-                        countdownLength: projectData.holCountDown,
+                        //holLength: projectData.holDuration,
+                        //countdownLength: projectData.holCountDown,
                     };
                     await apiCall(pixaFetch(projectData.destination));
                 }

@@ -59,7 +59,7 @@ export const workHolCountdown = (todaysDate, startDate) => {
 // const errorMessage = document.getElementById("error_message");
 
 //function to get data
-const getData = async (url = "") => {
+export const getData = async (url = "") => {
     const response = await fetch(url, {
         method: "GET",
         credentials: "same-origin",
@@ -68,25 +68,18 @@ const getData = async (url = "") => {
         .then((response) => {return response.json();
         })
         .then((data) => {
-            updateUI.responseImage = data[1].imageUrl;
+            document.getElementById('response_image').src = data[1].imageUrl;
             document.getElementById('avg_temp').innerHTML = data[0].averageTemp + " Degrees Celcius";
             document.getElementById('max_temp').innerHTML = data[0].maxTemp + " Degrees Celcius";
             document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
-            document.getElementById('hol_duration').innerHTML = data[0].holLength + ' days of holiday bliss';
-            document.getElementById('hol_countDown').innerHTML = data[0].countdownLength + ' days';
+            document.getElementById('hol_duration').innerHTML = data[0].holDuration + ' days of holiday bliss';
+            document.getElementById('hol_countDown').innerHTML = data[0].holCountDown + ' days';
             document.getElementById('fact_currencies').innerHTML = data[0].factCurrencies;
             document.getElementById('fact_languages').innerHTML = data[0].factLanguages;
             document.getElementById('fact_population').innerHTML = data[0].factPopulation;
             document.getElementById('fact_subregion').innerHTML = data[0].factSubregion;
-            updateUI(updateUI.responseImage);
         })
         .catch((err) => {
             console.log(err);
         });
-};
-
-// updating UI
-export const updateUI = (imageURL) => {
-    const responseImage = document.getElementById("response_image");
-    responseImage.src = imageURL;
 };
