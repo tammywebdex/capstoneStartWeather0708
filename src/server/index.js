@@ -29,22 +29,18 @@ let weatherApiData = {};
 let pixApiData = {};
 let restApiData = {};
 
-app.post('/addProjectData', async (request, response) => {
+app.post('/projectData', async (request, response) => {
     projectData = {
         destination: request.body.destination,
         holDuration: request.body.holDuration,
         holCountDown: request.body.holCountDown,
-    };
+        };
     console.log(projectData);
-    return(projectData);
-    response.status(200).send({ msg: "Received data" });
+    response.send(projectData);
 
-app.post('/getGeoApiData', async(request, response) =>{
+app.post('/geoApiData', async(request, response) =>{
         const getGeoData = await fetch(`http://api.geonames.org/searchJSON?name=${projectData.destination}&maxRows=1&username=${geoKey}`,
             {method: "POST",
-                credentials: "same-origin",
-                headers: {"Content-Type": "application/json",},
-                body: JSON.stringify(data),
             });
         try {
             const geoData = await getGeoData.json();
@@ -52,13 +48,13 @@ app.post('/getGeoApiData', async(request, response) =>{
             geoApiData['lat'] = geoData.data[0].lat;
             geoApiData['lng'] = geoData.data[0].lng;
             console.log(geoApiData);
-            response.send(geoApiData);
+            response.status(200).send(geoApiData);
         }catch(error){
             console.log("error", error);
         }})
     });
 
-app.post('/getWeatherApiData', async(request, response)=>{
+app.post('/weatherApiData', async(request, response)=>{
     const getWeatherData = await fetch(`http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${geoApiData.lat}&lon=${geoApiData.lng}`,{
         method: "POST",
         credentials: "same-origin",
@@ -77,7 +73,7 @@ app.post('/getWeatherApiData', async(request, response)=>{
         console.log("Error: ", error);
     }
 });
-app.get('/getRestApiData', async(request, response)=>{
+app.get('/restApiData', async(request, response)=>{
     const getRestData = await fetch(`https://restcountries.com/v3.1/name/${geoApiData.country}?status=true&fields=currencies,languages,population`,{
         method: "POST",
         credentials: "same-origin",
@@ -95,7 +91,7 @@ app.get('/getRestApiData', async(request, response)=>{
         console.log("Error: ", error);
     }
 });
-app.post('/getPixApiData', async(request,response)=>{
+app.post('/pixApiData', async(request,response)=>{
     const getPixData = fetch(`https://pixabay.com/api/?key=${pixKey}&q=${geoApiData.destination}&image_type=photo&orientation=horizontal`,{
         method: "POST",
         credentials: "same-origin",

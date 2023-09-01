@@ -1,4 +1,4 @@
-import { handleSubmit, workHolDuration, workHolCountdown, getData} from "./js/app";
+import { handleSubmit, calcHolDuration, calcHolCountdown, getData} from "./js/app";
 
 import './styles/style.scss';
 import './assets/images/travelApp2.jpg';
@@ -13,4 +13,4 @@ window.addEventListener("DOMContentLoaded", (event) => {
     document.querySelector('form').addEventListener('submit', handleSubmit);
 });
 
-export { handleSubmit, workHolDuration, workHolCountdown, getData};
+export { handleSubmit, calcHolDuration, calcHolCountdown, getData};
