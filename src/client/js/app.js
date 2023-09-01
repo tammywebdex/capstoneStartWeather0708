@@ -27,8 +27,8 @@ const postData = async (url = "", data = {}) => {
         console.log("Error: ", error);
     }
 };
-await postData('/projectData', {destination, startDate, endDate, holDuration, holCountDown });
-getData('/getData');
+    await postData('/projectData', {destination, startDate, endDate, holDuration, holCountDown });
+    getData('/getData');
         } catch (error) {
             alert(error);
         }
