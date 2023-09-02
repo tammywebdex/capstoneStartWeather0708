@@ -70,9 +70,9 @@ export const getData = async (url = "") => {
         })
         .then((data) => {
             document.getElementById('response_image').src = data[1].imageUrl;
-            document.getElementById('avg_temp').innerHTML = data[0].averageTemp + " Degrees Celcius";
-            document.getElementById('max_temp').innerHTML = data[0].maxTemp + " Degrees Celcius";
-            document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
+            document.getElementById('avg_temp').innerHTML = data[0].averageTemp + ' Degrees Celcius';
+            document.getElementById('max_temp').innerHTML = data[0].maxTemp + ' Degrees Celcius';
+            document.getElementById('min_temp').innerHTML = data[0].minTemp + ' Degrees Celcius';
             document.getElementById('hol_duration').innerHTML = data[0].holDuration + ' days of holiday bliss';
             document.getElementById('hol_countDown').innerHTML = data[0].holCountDown + ' days';
         })
