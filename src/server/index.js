@@ -29,14 +29,15 @@ let weatherApiData = {};
 let pixApiData = {};
 let restCountryApiData = {};
 
-app.post('/postProjectData', async (request, response) => {
+app.post('/projectData', async (request, response) => {
     projectData = {
         destination: request.body.destination,
         holDuration: request.body.holDuration,
         holCountDown: request.body.holCountDown,
     };
     await apiCall(geoFetch(projectData.destination, geoKey));
-    response.status(200).send({ msg: "Received data" });
+    response.status(200).send(projectData);
+    console.log('sent projectData')
 });
 
 const geoFetch = (destination) => {
@@ -84,15 +85,6 @@ const apiCall = async (url) => {
                     pixApiData = {
                         imageUrl: data.hits[0].webformatURL,
                     };
-                    await apiCall(restCountriesFetch(geoApiData.countryName));
-                }
-                if('countryName' in data) {
-                    restCountryApiData = {
-                        factCurrencies: data.data[0].currencies,
-                        factLanguages: data.data[0].languages,
-                        factPopulation: data.data[0].population,
-                        factSubregion: data.data[0].subregion,
-                    };
                 }
             });
     } catch (err) {
@@ -102,7 +94,7 @@ const apiCall = async (url) => {
 
 app.get("/getData", (req, res) => {
     res.status(200).send([weatherApiData, pixApiData, restCountryApiData]);
-    console.log("Sent Data");
+    console.log("API Sent Data");
 });
 
 module.exports = app;

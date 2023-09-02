@@ -7,9 +7,9 @@ export async function handleSubmit(event) {
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
         try {
-            const holDuration = await workHolDuration(startDate, endDate);
-            const holCountDown = await workHolCountdown(todaysDate, startDate);
-            console.log("POSTING DATA TO SERVER");
+            const holDuration = await sumHolDuration(startDate, endDate);
+            const holCountDown = await sumHolCountdown(todaysDate, startDate);
+            console.log("posting duration days to server");
             /* Function to POST data */
 const postData = async (url = "", data = {}) => {
     const response = await fetch(url, {
@@ -21,11 +21,12 @@ const postData = async (url = "", data = {}) => {
         try {
              const newData = await response.json();
              return newData;
+             console.log(newData);
                 } catch (error) {
                     console.log("Error: ", error);
                 }
             };
-            await postData('/postProjectData', { destination, startDate, endDate, holDuration, holCountDown });
+            await postData('/projectData', { destination, startDate, endDate, holDuration, holCountDown });
             getData('/getData');
         } catch (error) {
             alert(error);
@@ -33,7 +34,7 @@ const postData = async (url = "", data = {}) => {
 };
 
 // Work out the holiday duration
-export const workHolDuration = (startDate, endDate) => {
+export const sumHolDuration = (startDate, endDate) => {
     const firstDate = new Date(startDate);
     const secondDate = new Date(endDate);
     const holDuration = Math.round(Math.abs((firstDate - secondDate) / oneDay));
@@ -44,7 +45,7 @@ export const workHolDuration = (startDate, endDate) => {
     return holDuration;
 };
 //Work out holiday Count down
-export const workHolCountdown = (todaysDate, startDate) => {
+export const sumHolCountdown = (todaysDate, startDate) => {
     const firstCountDate = new Date(todaysDate);
     const secondCountDate = new Date(startDate);
     const holCountDown = Math.round(Math.abs((firstCountDate - secondCountDate) / oneDay));
