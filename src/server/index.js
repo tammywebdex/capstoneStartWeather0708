@@ -41,14 +41,17 @@ app.post('/projectData', async (request, response) => {
 app.post('/geoApiData', async(request, response) =>{
         const getGeoData = await fetch(`http://api.geonames.org/searchJSON?name=${projectData.destination}&maxRows=1&username=${geoKey}`,
             {method: "POST",
-            });
+            credentials: "same-origin",
+            headers: {"Content-Type": "application/json",},
+            body: JSON.stringify(data),
+        });
         try {
             const geoData = await getGeoData.json();
             geoApiData['country'] = geoData.data[0].countryName;
             geoApiData['lat'] = geoData.data[0].lat;
             geoApiData['lng'] = geoData.data[0].lng;
             console.log(geoApiData);
-            response.status(200).send(geoApiData);
+            response.send(geoApiData);
         }catch(error){
             console.log("error", error);
         }})
