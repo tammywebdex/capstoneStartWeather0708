@@ -6,6 +6,7 @@ export async function handleSubmit(event) {
         const destination = document.getElementById("destination").value;
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
+        const country = document.getElementById("country").value;
         try {
             const holDuration = await sumHolDuration(startDate, endDate);
             const holCountDown = await sumHolCountdown(todaysDate, startDate);
@@ -26,7 +27,7 @@ const postData = async (url = "", data = {}) => {
                     console.log("Error: ", error);
                 }
             };
-            await postData('/projectData', { destination, startDate, endDate, holDuration, holCountDown });
+            await postData('/projectData', { destination, country, startDate, endDate, holDuration, holCountDown });
             getData('/getData');
         } catch (error) {
             alert(error);

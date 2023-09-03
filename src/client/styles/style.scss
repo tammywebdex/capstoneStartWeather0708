@@ -1,149 +1,115 @@
-body{
-  background: #fffff8;
-  margin: 30px;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-#app{
+body {
   display: grid;
-  grid-auto-rows: minmax(150px, auto);
-  background: white;
-  color: black;
+  margin: 30px auto;
+  flex-direction: column;
+  min-height: 80vh;
+  padding: 50px;
+  justify-content: space-evenly;
+  //background: lightgrey;
+  font-family: "Comic Sans MS";
+  border: 5px solid black;
+  border-radius: 3px;
+  //line-height: 0%;
+}
+
+//main {
+//  flex: 2;
+//  line-height: 0%;
+//}
+
+section {
+  max-width: 800px;
+  margin: 50px auto;
+  display: flex;
   justify-content: center;
-  grid-gap: 1em;
+  //padding: 30px;
+  background-color: whitesmoke;
+  font-size: 12px;
+  font-family: "Comic Sans MS";
+  font-palette: light;
+  line-height: 0%;
+}
+h2 {
   font-size: 20px;
-  font-family: 'Oswald', sans-serif;
-  border: none;
+}
+h1 {
+  font-size: 36px;
+}
+p {
+  font-size: 14px;
 }
 
-.holder{
+.results {
+  display: grid;
+}
+button {
   display: inline-block;
   padding: 5px 5px;
-  font-size: 20px;
-  text-align: justify;
-  text-decoration: none;
-  outline: none;
-  color: black;
-  background-color: lightgray;
-  border: none;
-  border-radius: 10px;
-}
-
-.headline {
-  font-size: 60px;
-  color: black;
-  text-align: center;
-}
-.entry{
-  background: darkblue;
-  color: white;
-}
-.title {
-  font-size: 35px;
-}
-
-#entryHolder{
-}
-
-#date{
-
-}
-
-#temp{
-
-}
-
-#content{
-
-}
-
-/*  Basic Styling To Override Default For Basic HTML Elements */
-label{
-  display:block;
-  font-size: 27px;
-}
-
-
-input{
-  background:lightgray;
-  font-size: 20px;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-}
-
-h1{
-  font-size: 60px;
-}
-
-textarea{
-  background:lightgray;
-  font-size: 20px;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-  /*grid-row: 1;*/
-}
-input:focus {
-  background-color: grey;
-  border: none;
-  outline: none;
-}
-select:focus {
-  background-color: grey;
-  border: none;
-  outline: none;
-}
-textarea:focus {
-  background-color: grey;
-  border: none;
-  outline: none;
-}
-button:focus {
-  outline: none;
-}
-
-#generate {
-  display: inline-block;
-  padding: 5px 5px;
-  font-size: 40px;
+  font-size: 14px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   outline: none;
   color: white;
-  background-color: darkblue;
+  background-color: grey;
   border: none;
   border-radius: 10px;
-  box-shadow: 0 9px #999;
-  width: 200px;
-  height: 100px;
-  font-family: 'Oswald', sans-serif;
+  /*box-shadow: 0 9px #999;*/
 }
 
-#generate:hover {
-  background-color: blue;
+button:hover {
+  background-color: darkolivegreen;
 }
 
-#generate:active {
-  background-color: navy;
+button:active {
+  background-color: darkgray;
+  /*box-shadow: 0 5px #666;*/
   transform: translateY(4px);
 }
-/* Style for Placeholder Text*/
-::placeholder { /* Firefox, Chrome, Opera */
-  color: navy;
-  font-family: 'Oswald', sans-serif;
-  border: none;
+// footer
+footer {
+  display: flex;
+  margin: 30px;
+  border: 1px solid #545454;
+  border-radius: 3px;
+  justify-content: center;
+  line-height: 0%;
+  //padding: 10px;
+}
+// form
+form {
+  border: 1px solid #545454;
+  border-radius: 3px;
+  padding: 10px;
+  justify-content: center;
+}
+h2 {
+
+}
+input {
+  padding: 5px 5px;
+  width: 100%;
+  line-height: 16px;
+  margin: 10px 0;
+  justify-content: center;
+}
+// header
+.head {
+  margin: 10px;
+  display: grid;
+  justify-content: space-evenly;
+  //padding: 5px;
+  //background-color: whitesmoke;
+  font-size: 30px;
+  font-family: "Comic Sans MS";
+}
+.nav {
+  margin: 30px;
+  display: flex;
+  justify-content: space-around;
+  //padding: 30px;
+  //background-color: lightgrey;
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: navy;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-}
-#hol_countDown {
-  color: red;
-}
-::-ms-input-placeholder { /* Microsoft Edge */
-  color: navy;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-}
+
+

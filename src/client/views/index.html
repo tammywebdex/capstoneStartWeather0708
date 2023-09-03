@@ -6,18 +6,20 @@
 </head>
 <body>
 <section>
-    <div class="head_heading">
+    <div class=head>
             <h1>Holiday countdown and weather Predictor </h1>
-        <div class="head_description">
+        <div>
             <p>Wondering what the weather is likely to be for your holiday? Fill in the details here and submit to find out!</p>
         </div>
     </div>
 </section>
-<section>
-        <div class="holiday_input">
+<main>
+        <div>
             <form>
                 <label for="destination">Holiday destination city:</label>
                 <input type="text" id="destination" name="destination" placeholder="Destination" required />
+                <label for="country">In which country:</label>
+                <input type="text" id="country" name="destination" placeholder="Country" required />
                 <label for="startDate">First day of Holiday:</label>
                 <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required />
                 <label for="endDate">Last Day of Holiday:</label>
@@ -30,13 +32,11 @@
                     ></a
                     >
        </div>
-       <div id="weather_response">
-           <h2>Predicted Weather Forecast (based on historic averages):</h2>
+       <div class='results'>
+           <h2>Predicted Weather Forecast </h2>
            <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
            <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
            <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
-       </div>
-       <div id="duration_response">
            <h2>Trip Duration:</h2>
            <span id="hol_duration">Days</span>
            <h2>Number of days until your holiday (and counting):</h2>
@@ -50,7 +50,7 @@
            <span>Subregion:&nbsp;</span><span id="fact_subregion"></span><br />
        </div>
 </div>
-</section>
+</main>
 <footer><a href="http://www.geonames.org/"><button class="button">Credit to GeoNames</button></a>
     <a href="https://www.weatherbit.io/"><button class="button">Credit to WeatherBit</button></a>
     <a href="https://pixabay.com/"><button class="button">Credit to Pixabay</button></a>
