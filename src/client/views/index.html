@@ -8,17 +8,21 @@
 <section>
     <div class=head>
             <h1>Holiday countdown and weather Predictor </h1>
-        <div>
-            <p>Wondering what the weather is likely to be for your holiday? Fill in the details here and submit to find out!</p>
-        </div>
     </div>
 </section>
 <main>
         <div>
+            <div id="holiday_response">
+                <img id="response_image" src='' />
+                <a href="https://pixabay.com" target="_blank" rel="external nofollow" class="image_copyright"
+                ></a
+                >
+            </div>
             <form>
+                <p>Input your holiday details here and press submit.</p>
                 <label for="destination">Holiday destination city:</label>
                 <input type="text" id="destination" name="destination" placeholder="Destination" required />
-                <label for="country">In which country:</label>
+                <label for="country">Holiday destination country:</label>
                 <input type="text" id="country" name="destination" placeholder="Country" required />
                 <label for="startDate">First day of Holiday:</label>
                 <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required />
@@ -26,30 +30,26 @@
                 <input type="date" id="endDate" name="endDate" placeholder="dd.mm.yyyy" required />
                 <input type="submit" id="submit" value="Submit" />
             </form>
-        <div id="holiday_response">
-                    <img id="response_image" src='' />
-                    <a href="https://pixabay.com" target="_blank" rel="external nofollow" class="image_copyright"
-                    ></a
-                    >
-       </div>
-       <div class='results'>
-           <h2>Predicted Weather Forecast </h2>
-           <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
-           <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
-           <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
-           <h2>Trip Duration:</h2>
-           <span id="hol_duration">Days</span>
-           <h2>Number of days until your holiday (and counting):</h2>
-           <span id="hol_countDown">Days</span>
-       </div>
-       <div id="facts_response">
-           <h2>Interesting facts about the country you are visiting</h2>
-           <span>Currency: </span><span id="fact_currencies"></span><br />
-           <span>Language Spoken: </span><span id="fact_languages"></span><br />
-           <span>Population:&nbsp;</span><span id="fact_population"></span><br />
-           <span>Subregion:&nbsp;</span><span id="fact_subregion"></span><br />
-       </div>
-</div>
+            <section class='results'>
+                <div id="results_weather">
+                <h2>Predicted Weather Forecast </h2>
+                <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
+                <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
+                <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
+                </div>
+                <div id="results_days">
+                <h2>Trip Duration:</h2>
+                <span id="hol_duration">Days</span>
+                <h2>Number of days until your holiday (and counting):</h2>
+                <span id="hol_countDown">Days</span>
+                </div>
+                <div id="results_facts">
+                <h2>Interesting facts about the country you are visiting</h2>
+                <span>Currency: </span><span id="fact_currencies"></span><br />
+                <span>Language Spoken: </span><span id="fact_languages"></span><br />
+                <span>Population:&nbsp;</span><span id="fact_population"></span><br />
+            </div>
+        </section>
 </main>
 <footer><a href="http://www.geonames.org/"><button class="button">Credit to GeoNames</button></a>
     <a href="https://www.weatherbit.io/"><button class="button">Credit to WeatherBit</button></a>

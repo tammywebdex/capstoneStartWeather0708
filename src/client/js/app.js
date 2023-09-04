@@ -10,6 +10,9 @@ export async function handleSubmit(event) {
         try {
             const holDuration = await sumHolDuration(startDate, endDate);
             const holCountDown = await sumHolCountdown(todaysDate, startDate);
+            const currency = await restCountriesFetch(country);
+            const languages = await restCountriesFetch(country);
+            const population = await restCountriesFetch(country);
             console.log("posting duration days to server");
             /* Function to POST data */
 const postData = async (url = "", data = {}) => {
@@ -27,7 +30,8 @@ const postData = async (url = "", data = {}) => {
                     console.log("Error: ", error);
                 }
             };
-            await postData('/projectData', { destination, country, startDate, endDate, holDuration, holCountDown });
+            await postData('/projectData', { destination, country, startDate, endDate, holDuration, holCountDown, currency, population, languages });
+            console.log('projectData posted');
             getData('/getData');
         } catch (error) {
             alert(error);
@@ -56,6 +60,11 @@ export const sumHolCountdown = (todaysDate, startDate) => {
     console.log(holCountDown)
     return holCountDown;
 };
+export const restCountriesFetch = (country) =>
+{return `https://restcountries.com/v3.1/name/${country}?status=true&fields=currencies,languages,population`;
+};
+
+
 
 //let uiData = {};
 // const errorMessage = document.getElementById("error_message");
@@ -76,6 +85,9 @@ export const getData = async (url = "") => {
             document.getElementById('min_temp').innerHTML = data[0].minTemp + ' Degrees Celcius';
             document.getElementById('hol_duration').innerHTML = data[0].holDuration + ' days of holiday bliss';
             document.getElementById('hol_countDown').innerHTML = data[0].holCountDown + ' days';
+            document.getElementById('fact_currencies').innerHTML = data[0].currency;
+            document.getElementById('fact_languages').innerHTML = data[0].languages;
+            document.getElementById('fact_population').innerHTML = data[0].population;
         })
         .catch((err) => {
             console.log(err);

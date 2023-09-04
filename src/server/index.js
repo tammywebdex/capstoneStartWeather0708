@@ -34,7 +34,7 @@ app.post('/projectData', async (request, response) => {
         destination: request.body.destination,
         holDuration: request.body.holDuration,
         holCountDown: request.body.holCountDown,
-        countryName: request.body.country,
+        country: request.body.country,
     };
     await apiCall(geoFetch(projectData.destination, geoKey));
     response.status(200).send(projectData);
@@ -47,7 +47,7 @@ const geoFetch = (destination) => {
 const weatherFetch = (lat, lng) => {
     return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
-const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=`;
+const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=currencies,languages,population`;
 
 };
 const pixaFetch = (destination) => {
@@ -90,6 +90,17 @@ const apiCall = async (url) => {
         console.log("Error: " + err);
     }
 };
+app.post('/restCountryApiData', async (request, response) => {
+        restCountryApiData = {
+        currency: request.body.currencies,
+        languages: request.languages,
+        population: request.body.population,
+        subregion: request.body.subregion
+    }
+    await apiCall(restCountriesFetch(projectData.country));
+    response.status(200).send(restCountryApiData);
+    console.log('sent restCountryApiData');
+})
 
 app.get("/getData", (req, res) => {
     res.status(200).send([weatherApiData, pixApiData, restCountryApiData]);
