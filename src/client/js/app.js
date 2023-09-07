@@ -7,8 +7,8 @@ export async function handleSubmit(event) {
         const startDate = document.getElementById("startDate").value;
         const endDate = document.getElementById("endDate").value;
         try {
-            const holDuration = await workHolDuration(startDate, endDate);
-            const holCountDown = await workHolCountdown(todaysDate, startDate);
+            const holDuration = await sumHolDuration(startDate, endDate);
+            const holCountDown = await sumHolCountdown(todaysDate, startDate);
             console.log("POSTING DATA TO SERVER");
             /* Function to POST data */
 const postData = async (url = "", data = {}) => {
@@ -25,7 +25,7 @@ const postData = async (url = "", data = {}) => {
                     console.log("Error: ", error);
                 }
             };
-            await postData('/postProjectData', { destination, startDate, endDate, holDuration, holCountDown });
+            await postData('/ProjectData', { destination, startDate, endDate, holDuration, holCountDown });
             getData('/getData');
         } catch (error) {
             alert(error);
@@ -33,7 +33,7 @@ const postData = async (url = "", data = {}) => {
 };
 
 // Work out the holiday duration
-export const workHolDuration = (startDate, endDate) => {
+export const sumHolDuration = (startDate, endDate) => {
     const firstDate = new Date(startDate);
     const secondDate = new Date(endDate);
     const holDuration = Math.round(Math.abs((firstDate - secondDate) / oneDay));
@@ -44,7 +44,7 @@ export const workHolDuration = (startDate, endDate) => {
     return holDuration;
 };
 //Work out holiday Count down
-export const workHolCountdown = (todaysDate, startDate) => {
+export const sumHolCountdown = (todaysDate, startDate) => {
     const firstCountDate = new Date(todaysDate);
     const secondCountDate = new Date(startDate);
     const holCountDown = Math.round(Math.abs((firstCountDate - secondCountDate) / oneDay));
@@ -73,8 +73,8 @@ export const getData = async (url = "") => {
             document.getElementById('avg_temp').innerHTML = data[0].averageTemp + " Degrees Celcius";
             document.getElementById('max_temp').innerHTML = data[0].maxTemp + " Degrees Celcius";
             document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
-            document.getElementById('hol_duration').innerHTML = data[0].holLength + ' days of holiday bliss';
-            document.getElementById('hol_countDown').innerHTML = data[0].countdownLength + ' days';
+            document.getElementById('hol_duration').innerHTML = 'You can look forward to ' + data[0].holLength + ' days of holiday bliss';
+            document.getElementById('hol_countDown').innerHTML = 'In T-minus ' + data[0].countdownLength + ' days';
             document.getElementById('fact_currencies').innerHTML = data[0].factCurrencies;
             document.getElementById('fact_languages').innerHTML = data[0].factLanguages;
             document.getElementById('fact_population').innerHTML = data[0].factPopulation;

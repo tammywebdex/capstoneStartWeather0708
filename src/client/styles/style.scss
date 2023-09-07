@@ -1,149 +1,212 @@
-body{
-  background: #fffff8;
-  margin: 30px;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-#app{
-  display: grid;
-  grid-auto-rows: minmax(150px, auto);
-  background: white;
-  color: black;
+.head {
   justify-content: center;
-  grid-gap: 1em;
-  font-size: 20px;
-  font-family: 'Oswald', sans-serif;
-  border: none;
+}
+.container {
+  display: grid;
+}
+.box {
+  justify-content: flex-start;
+  display: flex;
+  border: black;
+  background-color: aliceblue;
+}
+//.box_left {
+//  display: flex;
+//  justify-content: left;
+//}
+//.box_right {
+//  display: flex;
+//  justify-content: right;
+//}
+#avg_temp {
+  border-color: darkblue;
+  font-size: 14px;
+  font-weight: bold;
+}
+#min_temp {
+  border-color: darkblue;
+  font-size: 14px;
+  font-weight: bold;
+}
+#max_temp {
+  border-color: darkblue;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.holder{
-  display: inline-block;
-  padding: 5px 5px;
-  font-size: 20px;
-  text-align: justify;
-  text-decoration: none;
-  outline: none;
-  color: black;
-  background-color: lightgray;
-  border: none;
-  border-radius: 10px;
-}
+  body {
+    display: grid;
+    margin: 30px auto;
+    flex-direction: column;
+    min-height: 80vh;
+    padding: 50px;
+    justify-content: space-evenly;
+    //background: lightgrey;
+    font-family: Arial;
+    border: 5px solid black;
+    border-radius: 3px;
+    //line-height: 0%;
+  }
 
-.headline {
-  font-size: 60px;
-  color: black;
-  text-align: center;
-}
-.entry{
-  background: darkblue;
-  color: white;
-}
-.title {
-  font-size: 35px;
-}
+  //main {
+  //  flex: 2;
+  //  line-height: 0%;
+  //}
 
-#entryHolder{
-}
+  section {
+    max-width: 800px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+    //padding: 30px;
+    background-color: whitesmoke;
+    font-size: 12px;
+    font-palette: light;
+    line-height: 0%;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  h1 {
+    font-size: 36px;
+  }
+  p {
+    font-size: 14px;
+  }
+  span {
+    font-size: 12px;
+  }
+  .results {
+    display: flex;
+    flex-direction: row;
+  }
+  #results_weather {
+    border: black;
+    background-color: lightgrey;
+  }
+  button {
+    display: inline-block;
+    padding: 5px 5px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: grey;
+    border: none;
+    border-radius: 10px;
+    /*box-shadow: 0 9px #999;*/
+  }
 
-#date{
+  button:hover {
+    background-color: darkolivegreen;
+  }
 
-}
+  button:active {
+    background-color: darkgray;
+    /*box-shadow: 0 5px #666;*/
+    transform: translateY(4px);
+  }
+  // footer
+  footer {
+    display: flex;
+    margin: 30px;
+    border: 1px solid #545454;
+    border-radius: 3px;
+    justify-content: center;
+    line-height: 0%;
+    //padding: 10px;
+  }
+  // form
+  //form {
+//    display: flex;
+//    border: 1px solid #545454;
+//    border-radius: 3px;
+//    //padding: 10px;
+//    justify-content: center;
+//    flex-direction: column;
+//  }
+  #box_left {
 
-#temp{
+  }
+  input {
+    padding: 5px 5px;
+    width: 25%;
+    line-height: 16px;
+    margin: 10px 0;
+    justify-content: center;
+  }
+  // header
+  .head {
+    margin: 10px;
+    display: grid;
+    justify-content: space-evenly;
+    //padding: 5px;
+    //background-color: whitesmoke;
+    font-size: 30px;
+    font-family: "Comic Sans MS";
+  }
+  .nav {
+    margin: 30px;
+    display: flex;
+    justify-content: space-around;
+    //padding: 30px;
+    //background-color: lightgrey;
+  }
+  /* http://meyerweb.com/eric/tools/css/reset/
+     v2.0 | 20110126
+     License: none (public domain)
+  */
 
-}
+  * {
+    box-sizing: border-box;
+  }
 
-#content{
-
-}
-
-/*  Basic Styling To Override Default For Basic HTML Elements */
-label{
-  display:block;
-  font-size: 27px;
-}
-
-
-input{
-  background:lightgray;
-  font-size: 20px;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-}
-
-h1{
-  font-size: 60px;
-}
-
-textarea{
-  background:lightgray;
-  font-size: 20px;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-  /*grid-row: 1;*/
-}
-input:focus {
-  background-color: grey;
-  border: none;
-  outline: none;
-}
-select:focus {
-  background-color: grey;
-  border: none;
-  outline: none;
-}
-textarea:focus {
-  background-color: grey;
-  border: none;
-  outline: none;
-}
-button:focus {
-  outline: none;
-}
-
-#generate {
-  display: inline-block;
-  padding: 5px 5px;
-  font-size: 40px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: white;
-  background-color: darkblue;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 9px #999;
-  width: 200px;
-  height: 100px;
-  font-family: 'Oswald', sans-serif;
-}
-
-#generate:hover {
-  background-color: blue;
-}
-
-#generate:active {
-  background-color: navy;
-  transform: translateY(4px);
-}
-/* Style for Placeholder Text*/
-::placeholder { /* Firefox, Chrome, Opera */
-  color: navy;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: navy;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-}
-#hol_countDown {
-  color: red;
-}
-::-ms-input-placeholder { /* Microsoft Edge */
-  color: navy;
-  font-family: 'Oswald', sans-serif;
-  border: none;
-}
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 30px;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  ul {
+    list-style-type: none;
+  }

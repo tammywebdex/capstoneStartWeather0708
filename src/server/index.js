@@ -29,7 +29,7 @@ let weatherApiData = {};
 let pixApiData = {};
 let restCountryApiData = {};
 
-app.post('/postProjectData', async (request, response) => {
+app.post('/ProjectData', async (request, response) => {
     projectData = {
         destination: request.body.destination,
         holDuration: request.body.holDuration,
@@ -38,7 +38,7 @@ app.post('/postProjectData', async (request, response) => {
         endDate: request.body.endDate,
     };
     await apiCall(geoFetch(projectData.destination, geoKey));
-    response.status(200).send({ msg: "Received data" });
+    response.status(200).send({ msg: "Received projectData" });
 });
 
 const geoFetch = (destination) => {
