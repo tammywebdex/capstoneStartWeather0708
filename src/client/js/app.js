@@ -73,8 +73,8 @@ export const getData = async (url = "") => {
             document.getElementById('avg_temp').innerHTML = data[0].averageTemp + " Degrees Celcius";
             document.getElementById('max_temp').innerHTML = data[0].maxTemp + " Degrees Celcius";
             document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
-            document.getElementById('hol_duration').innerHTML = 'You can look forward to ' + data[0].holLength + ' days of holiday bliss';
-            document.getElementById('hol_countDown').innerHTML = 'In T-minus ' + data[0].countdownLength + ' days';
+            document.getElementById('hol_duration').innerHTML = data[0].holLength + ' days of holiday bliss';
+            document.getElementById('hol_countDown').innerHTML = data[0].countdownLength + ' days until the start of your holiday!';
             document.getElementById('fact_currencies').innerHTML = data[0].factCurrencies;
             document.getElementById('fact_languages').innerHTML = data[0].factLanguages;
             document.getElementById('fact_population').innerHTML = data[0].factPopulation;

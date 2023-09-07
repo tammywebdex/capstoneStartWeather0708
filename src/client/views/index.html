@@ -10,56 +10,54 @@
         <h1>Holiday Assistant </h1>
     </div>
 </section>
-    <container>
-        <div class='box_left'>
-            <div id="holiday_response">
+<form>
+    <p>Input your holiday details here and press submit.</p>
+    <div class ='box_left'>
+        <label for="destination">Holiday destination city:</label>
+        <input type="text" id="destination" name="destination" placeholder="Destination" required />
+        <label for="country">Holiday destination country:</label>
+        <input type="text" id="country" name="destination" placeholder="Country" required /></div>
+    <div class ='box_right'>
+        <label for="startDate">Start of Holiday:</label>
+        <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required />
+        <label for="endDate">End of Holiday:</label>
+        <input type="date" id="endDate" name="endDate" placeholder="dd.mm.yyyy" required /></div>
+    <input type="submit" id="submit" value="Submit" />
+</form>
+
+    <div class="container">
+        <div class="box">
+            <div id="box_days">
+                <div id="head_days"><h2>Trip Duration:</h2></div>
+                <div id="hol_countDown"></div>
+                <div id="hol_duration"></div>
+            </div>
+        </div>
+        <div class='box'>
             <img id="response_image" src='' />
             <a href="https://pixabay.com" target="_blank" rel="external nofollow" class="image_copyright"
             ></a
             >
             </div>
         </div>
-        <div class ='box_left'>
-            <div id="results_weather">
+        <div class='box'>
+            <div id="box_weather">
                 <h2>Estimated Weather Forecast </h2>
                 <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
                 <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
                 <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
             </div>
-        <div class='box'>
-        <form>
-            <p>Input your holiday details here and press submit.</p>
-            <div class ='box_left'>
-            <label for="destination">Holiday destination city:</label>
-            <input type="text" id="destination" name="destination" placeholder="Destination" required />
-            <label for="country">Holiday destination country:</label>
-            <input type="text" id="country" name="destination" placeholder="Country" required /></div>
-            <div class ='box_right'>
-            <label for="startDate">Start of Holiday:</label>
-            <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required />
-            <label for="endDate">End of Holiday:</label>
-                <input type="date" id="endDate" name="endDate" placeholder="dd.mm.yyyy" required /></div>
-            <input type="submit" id="submit" value="Submit" />
-        </form>
         </div>
-        <div class box>
-        <section class='results'>
-            <div class ='box_right'>
-            <div id="results_days">
-                <h2>Trip Duration:</h2>
-                <span id="hol_countDown">Days</span>
-                <span id="hol_duration">Days</span>
-            </div>
-            </div>
-            <div id="results_facts">
+
+        <div class="box">
+            <div id="box_facts">
                 <h2>Interesting facts about the country you are visiting</h2>
                 <span>Currency: </span><span id="fact_currencies"></span><br />
                 <span>Language Spoken: </span><span id="fact_languages"></span><br />
                 <span>Population:&nbsp;</span><span id="fact_population"></span><br />
             </div>
-        </section>
+        </div>
     </div>
-</div></container>
 <footer>
     <a href="http://www.geonames.org/"><button class="button">Credit to GeoNames</button></a>
     <a href="https://www.weatherbit.io/"><button class="button">Credit to WeatherBit</button></a>
