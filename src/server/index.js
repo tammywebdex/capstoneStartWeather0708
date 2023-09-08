@@ -13,7 +13,7 @@ app.use(express.static('dist'))
 // Setup Server
 const port = 3030;
 server = app.listen(port, listening);
-
+//setup server listening function
 function listening(){
     console.log('server running');
     console.log(`running on localhost: ${port}`);
@@ -22,94 +22,74 @@ function listening(){
 const geoKey = process.env.Geonames_API_ID;
 const weatherKey = process.env.WeatherBit_Key;
 const pixKey = process.env.Pixabay_API_KEY;
-//endpoints
+//endpoints to facilitate api calls
 let projectData = {};
 let geoApiData = {};
 let weatherApiData = {};
 let pixApiData = {};
-let restApiData = {};
 
-app.post('/projectData', async (request, response) => {
+app.post('/ProjectData', async (request, response) => {
     projectData = {
         destination: request.body.destination,
         holDuration: request.body.holDuration,
         holCountDown: request.body.holCountDown,
-        };
-    console.log(projectData);
-    response.send(projectData);
-
-app.post('/geoApiData', async(request, response) =>{
-        const getGeoData = await fetch(`http://api.geonames.org/searchJSON?name=${projectData.destination}&maxRows=1&username=${geoKey}`,
-            {method: "POST",
+        startDate: request.body.startDate,
+        endDate: request.body.endDate,
+    };
+    await apiCall(geoFetch(projectData.destination, geoKey));
+    response.status(200).send({ msg: "Received projectData" });
+});
+//Functions to call all the api's
+const geoFetch = (destination) => {
+    return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
+};
+const weatherFetch = (lat, lng) => {
+    return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
+};
+const pixaFetch = (destination) => {
+    return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
+};
+// function to aid fetch of data from all different APIs
+const apiCall = async (url) => {
+    try {
+        await fetch(url)
+            .then((res) => res.json())
+            .then(async (data) => {
+                console.log("Data is: ", data);
+                // Geonames check
+                if ('geonames' in data) {
+                    geoApiData = {
+                        lat: data.geonames[0].lat,
+                        lng: data.geonames[0].lng,
+                        countryName: data.geonames[0].countryName,
+                    };
+                    await apiCall(weatherFetch(geoApiData.lat, geoApiData.lng));
+                    console.log(geoApiData);
+                }
+                if ('city_name' in data) {
+                    // console.log(data); for debugging purpose only
+                    weatherApiData = {
+                        averageTemp: data.data[0].temp,
+                        minTemp: data.data[0].min_temp,
+                        maxTemp: data.data[0].max_temp,
+                        holLength: projectData.holDuration,
+                        countdownLength: projectData.holCountDown,
+                    };
+                    await apiCall(pixaFetch(projectData.destination));
+                }
+                if ('hits' in data) {
+                    pixApiData = {
+                        imageUrl: data.hits[0].webformatURL,
+                    };
+                }
             });
-        try {
-            const geoData = await getGeoData.json();
-            geoApiData['country'] = geoData.data[0].countryName;
-            geoApiData['lat'] = geoData.data[0].lat;
-            geoApiData['lng'] = geoData.data[0].lng;
-            console.log(geoApiData);
-            response.status(200).send(geoApiData);
-        }catch(error){
-            console.log("error", error);
-        }})
-    });
-
-app.post('/weatherApiData', async(request, response)=>{
-    const getWeatherData = await fetch(`http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${geoApiData.lat}&lon=${geoApiData.lng}`,{
-        method: "POST",
-        credentials: "same-origin",
-        headers: {"Content-Type": "application/json",},
-        body: JSON.stringify(data),
-    });
-    try {
-        const weatherData = await getWeatherData.json();
-        weatherApiData['averageTemp'] = weatherData.data[0].temp;
-        weatherApiData['minTemp'] = weatherData.data[0].min_temp;
-        weatherApiData['maxTemp'] = weatherData.data[0].max_temp;
-        //weatherApiData['weatherIcon'] = weatherData.data[0].weather.icon;
-        console.log(weatherApiData);
-        response.send(weatherApiData);
-    } catch (error) {
-        console.log("Error: ", error);
+    } catch (err) {
+        console.log("Error: " + err);
     }
-});
-app.get('/restApiData', async(request, response)=>{
-    const getRestData = await fetch(`https://restcountries.com/v3.1/name/${geoApiData.country}?status=true&fields=currencies,languages,population`,{
-        method: "POST",
-        credentials: "same-origin",
-        headers: {"Content-Type": "application/json",},
-        body: JSON.stringify(data),
-    });
-    try {
-        const restData = await getRestData.json();
-        restApiData['currencies'] = restData.data[0].currencies;
-        geoApiData['languages'] = restData.data[0].languages;
-        geoApiData['population'] = restData.data[0].population;
-        console.log(restApiData);
-        response.send(restApiData);
-    } catch (error) {
-        console.log("Error: ", error);
-    }
-});
-app.post('/pixApiData', async(request,response)=>{
-    const getPixData = fetch(`https://pixabay.com/api/?key=${pixKey}&q=${geoApiData.destination}&image_type=photo&orientation=horizontal`,{
-        method: "POST",
-        credentials: "same-origin",
-        headers: {"Content-Type": "application/json",},
-        body: JSON.stringify(data),
-    });
-    try {
-        const pixData = await getPixData.json();
-        pixApiData['imageUrl'] = pixData.hits[0].webformatURL;
-        console.log(pixApiData);
-        response.send(pixApiData);
-    } catch (error) {
-        console.log("Error: ", error);
-    }
-});
+};
 app.get("/getData", (req, res) => {
-    res.status(200).send([projectData, weatherApiData, pixApiData, restApiData]);
-    console.log("Sent Data");
+    res.status(200).send([weatherApiData, pixApiData]);
+    console.log("Sent all API Data");
 });
 
 module.exports = app;
