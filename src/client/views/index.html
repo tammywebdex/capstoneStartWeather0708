@@ -40,7 +40,14 @@
         </div>
         <div class='box'>
             <div id="box_weather">
-                <div id="weather_days"><h2>Estimated Weather:</h2></div>
+                <div id="weather_days"><h2>Estimated Weather:</h2></div><script>
+                     if ('serviceWorker' in navigator) {
+                         // Use the window load event to keep the page load performant
+                         window.addEventListener('load', () => {
+                             navigator.serviceWorker.register('/service-worker.js');
+                       });
+                    }
+                </script>
                     <div>Average Temperature:&nbsp;</div><div id="avg_temp"></div><br>
                 <div>Maximum Temperature:&nbsp;</div><div id="max_temp"></div><br />
                 <div>Minimum Temperature:&nbsp;</div><div id="min_temp"></div><br />

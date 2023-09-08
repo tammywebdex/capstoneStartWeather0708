@@ -13,7 +13,7 @@ app.use(express.static('dist'))
 // Setup Server
 const port = 3030;
 server = app.listen(port, listening);
-
+//setup server listening function
 function listening(){
     console.log('server running');
     console.log(`running on localhost: ${port}`);
@@ -22,12 +22,11 @@ function listening(){
 const geoKey = process.env.Geonames_API_ID;
 const weatherKey = process.env.WeatherBit_Key;
 const pixKey = process.env.Pixabay_API_KEY;
-//endpoints
+//endpoints to facilitate api calls
 let projectData = {};
 let geoApiData = {};
 let weatherApiData = {};
 let pixApiData = {};
-let restCountryApiData = {};
 
 app.post('/ProjectData', async (request, response) => {
     projectData = {
@@ -40,7 +39,7 @@ app.post('/ProjectData', async (request, response) => {
     await apiCall(geoFetch(projectData.destination, geoKey));
     response.status(200).send({ msg: "Received projectData" });
 });
-
+//Functions to call all the api's
 const geoFetch = (destination) => {
     return `http://api.geonames.org/searchJSON?name=${destination}&maxRows=1&username=${geoKey}`;
 };
@@ -54,7 +53,7 @@ const pixaFetch = (destination) => {
     return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
 };
 
-// function to fetch data from different apis
+// function to aid fetch of data from all different APIs
 const apiCall = async (url) => {
     try {
         await fetch(url)
@@ -94,7 +93,7 @@ const apiCall = async (url) => {
 };
 
 app.get("/getData", (req, res) => {
-    res.status(200).send([weatherApiData, pixApiData, restCountryApiData]);
+    res.status(200).send([weatherApiData, pixApiData]);
     console.log("Sent all API Data");
 });
 

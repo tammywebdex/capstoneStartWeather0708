@@ -1,5 +1,7 @@
+//Global variables
 let todaysDate = new Date();
 const oneDay = 24 * 60 * 60 * 1000;
+//function to handle form input and submit
 export async function handleSubmit(event) {
         event.preventDefault()
         const destination = document.getElementById("destination").value;
@@ -8,8 +10,8 @@ export async function handleSubmit(event) {
         try {
             const holDuration = await sumHolDuration(startDate, endDate);
             const holCountDown = await sumHolCountdown(todaysDate, startDate);
-            console.log("POSTING DATA TO SERVER");
-
+            console.log("Posting days data in handelSumit");
+//postData function
 const postData = async (url = "", data = {}) => {
     const response = await fetch(url, {
         method: "POST",
@@ -53,6 +55,7 @@ export const sumHolCountdown = (todaysDate, startDate) => {
     console.log(holCountDown)
     return holCountDown;
 };
+//Get data and update UI
 export const getData = async (url = "") => {
     const response = await fetch(url, {
         method: "GET",
