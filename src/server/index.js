@@ -46,13 +46,9 @@ const geoFetch = (destination) => {
 const weatherFetch = (lat, lng) => {
     return `http://api.weatherbit.io/v2.0/forecast/daily?key=${weatherKey}&lat=${lat}&lon=${lng}`;
 };
-const restCountriesFetch = (countryName) => {return `https://restcountries.com/v3.1/name/${countryName}?status=true&fields=`;
-
-};
 const pixaFetch = (destination) => {
     return `https://pixabay.com/api/?key=${pixKey}&q=${destination}&image_type=photo&orientation=horizontal`;
 };
-
 // function to aid fetch of data from all different APIs
 const apiCall = async (url) => {
     try {
@@ -91,7 +87,6 @@ const apiCall = async (url) => {
         console.log("Error: " + err);
     }
 };
-
 app.get("/getData", (req, res) => {
     res.status(200).send([weatherApiData, pixApiData]);
     console.log("Sent all API Data");
