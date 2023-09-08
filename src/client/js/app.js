@@ -1,4 +1,3 @@
-//global variables
 let todaysDate = new Date();
 const oneDay = 24 * 60 * 60 * 1000;
 export async function handleSubmit(event) {
@@ -10,7 +9,7 @@ export async function handleSubmit(event) {
             const holDuration = await sumHolDuration(startDate, endDate);
             const holCountDown = await sumHolCountdown(todaysDate, startDate);
             console.log("POSTING DATA TO SERVER");
-            /* Function to POST data */
+
 const postData = async (url = "", data = {}) => {
     const response = await fetch(url, {
         method: "POST",
@@ -49,16 +48,11 @@ export const sumHolCountdown = (todaysDate, startDate) => {
     const secondCountDate = new Date(startDate);
     const holCountDown = Math.round(Math.abs((firstCountDate - secondCountDate) / oneDay));
     if (firstCountDate > secondCountDate) {
-        throw new Error("Choose a future date!");
+        throw new Error("Please try again with a date in the future!");
     }
     console.log(holCountDown)
     return holCountDown;
 };
-
-//let uiData = {};
-// const errorMessage = document.getElementById("error_message");
-
-//function to get data
 export const getData = async (url = "") => {
     const response = await fetch(url, {
         method: "GET",
@@ -75,10 +69,6 @@ export const getData = async (url = "") => {
             document.getElementById('min_temp').innerHTML = data[0].minTemp + " Degrees Celcius";
             document.getElementById('hol_duration').innerHTML = data[0].holLength + ' days of holiday bliss';
             document.getElementById('hol_countDown').innerHTML = data[0].countdownLength + ' days until the start of your holiday!';
-            document.getElementById('fact_currencies').innerHTML = data[0].factCurrencies;
-            document.getElementById('fact_languages').innerHTML = data[0].factLanguages;
-            document.getElementById('fact_population').innerHTML = data[0].factPopulation;
-            document.getElementById('fact_subregion').innerHTML = data[0].factSubregion;
         })
         .catch((err) => {
             console.log(err);

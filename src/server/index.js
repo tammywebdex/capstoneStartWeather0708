@@ -86,15 +86,6 @@ const apiCall = async (url) => {
                     pixApiData = {
                         imageUrl: data.hits[0].webformatURL,
                     };
-                    await apiCall(restCountriesFetch(geoApiData.countryName));
-                }
-                if('countryName' in data) {
-                    restCountryApiData = {
-                        factCurrencies: data.data[0].currencies,
-                        factLanguages: data.data[0].languages,
-                        factPopulation: data.data[0].population,
-                        factSubregion: data.data[0].subregion,
-                    };
                 }
             });
     } catch (err) {
@@ -104,7 +95,7 @@ const apiCall = async (url) => {
 
 app.get("/getData", (req, res) => {
     res.status(200).send([weatherApiData, pixApiData, restCountryApiData]);
-    console.log("Sent Data");
+    console.log("Sent all API Data");
 });
 
 module.exports = app;

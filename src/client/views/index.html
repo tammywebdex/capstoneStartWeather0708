@@ -12,24 +12,22 @@
 </section>
 <form>
     <p>Input your holiday details here and press submit.</p>
-    <div class ='box_left'>
+    <div class ='box2'>
         <label for="destination">Holiday destination city:</label>
-        <input type="text" id="destination" name="destination" placeholder="Destination" required />
-        <label for="country">Holiday destination country:</label>
-        <input type="text" id="country" name="destination" placeholder="Country" required /></div>
-    <div class ='box_right'>
+        <input type="text" id="destination" name="destination" placeholder="Destination" required /><br>
         <label for="startDate">Start of Holiday:</label>
-        <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required />
+        <input type="date" id="startDate" name="startDate" placeholder="dd.mm.yyyy" required /><br>
         <label for="endDate">End of Holiday:</label>
-        <input type="date" id="endDate" name="endDate" placeholder="dd.mm.yyyy" required /></div>
+        <input type="date" id="endDate" name="endDate" placeholder="dd.mm.yyyy" required /></div><br>
     <input type="submit" id="submit" value="Submit" />
 </form>
 
     <div class="container">
         <div class="box">
             <div id="box_days">
-                <div id="head_days"><h2>Trip Duration:</h2></div>
+                <div id="head_days"><h2>Holiday Duration:</h2></div>
                 <div id="hol_countDown"></div>
+                <div id="head2_days"><h2>Holiday Countdown:</h2></div>
                 <div id="hol_duration"></div>
             </div>
         </div>
@@ -42,28 +40,19 @@
         </div>
         <div class='box'>
             <div id="box_weather">
-                <h2>Estimated Weather Forecast </h2>
-                <span>Average Temperature:&nbsp;</span><span id="avg_temp"></span><br />
-                <span>Maximum Temperature:&nbsp;</span><span id="max_temp"></span><br />
-                <span>Minimum Temperature:&nbsp;</span><span id="min_temp"></span><br />
+                <div id="weather_days"><h2>Estimated Weather:</h2></div>
+                    <div>Average Temperature:&nbsp;</div><div id="avg_temp"></div><br>
+                <div>Maximum Temperature:&nbsp;</div><div id="max_temp"></div><br />
+                <div>Minimum Temperature:&nbsp;</div><div id="min_temp"></div><br />
             </div>
         </div>
-
-        <div class="box">
-            <div id="box_facts">
-                <h2>Interesting facts about the country you are visiting</h2>
-                <span>Currency: </span><span id="fact_currencies"></span><br />
-                <span>Language Spoken: </span><span id="fact_languages"></span><br />
-                <span>Population:&nbsp;</span><span id="fact_population"></span><br />
-            </div>
         </div>
     </div>
 <footer>
     <a href="http://www.geonames.org/"><button class="button">Credit to GeoNames</button></a>
     <a href="https://www.weatherbit.io/"><button class="button">Credit to WeatherBit</button></a>
     <a href="https://pixabay.com/"><button class="button">Credit to Pixabay</button></a>
-    <a href="https://restcountries.com/"><button class="button">Credit to RestCountr</button></a>
-</footer>
+    </footer>
 
 </body>
 </html>
